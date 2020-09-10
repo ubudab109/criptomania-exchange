@@ -881,7 +881,7 @@ tbody.ob-heading {
 }
 
 .market-trade .tab-content {
-  height: 357px;
+  height: auto;
   overflow: hidden;
   padding: 14px;
 }
