@@ -123,7 +123,7 @@ class ReportsService
         return app(DataListService::class)->dataList($query, $searchFields, $orderFields);
     }
 
-    public function withdrawals($userId = null, $id = null, $transactionType = null)
+    public function withdrawals($userId = null, $id = null, $transactionType = null, $paymentMethod = null)
     {
         $searchFields = [
             ['ref_id', __('Reference ID')],
@@ -146,6 +146,10 @@ class ReportsService
 
         $where = null;
 
+        if(!is_null($paymentMethod)){
+            $where['payment_method'] = $paymentMethod;
+        }
+
         if (!is_null($userId)) {
             $where['user_id'] = $userId;
         } else {
@@ -157,6 +161,59 @@ class ReportsService
         }
 
         $select = ['withdrawals.*', 'item', 'item_name', 'email'];
+        $joinArray = [
+            ['stock_items', 'stock_items.id', '=', 'withdrawals.stock_item_id'],
+            ['users', 'users.id', '=', 'withdrawals.user_id'],
+        ];
+
+        if (!is_null($id)) {
+            $where['wallet_id'] = $id;
+        }
+
+        $query = $this->withdrawalRepository->paginateWithFilters($searchFields, $orderFields, $where, $select, $joinArray);
+
+        return app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+    }
+
+
+    public function withdrawalsRealCurrency($userId = null, $id = null, $transactionType = null, $itemType = null)
+    {
+        $searchFields = [
+            ['ref_id', __('Reference ID')],
+            ['amount', __('Amount')],
+            ['address', __('Address')],
+            ['txn_id', __('Transaction ID')],
+        ];
+
+        if (is_null($id)) {
+            $searchFields[] = ['item_name', __('Stock Name')];
+        }
+
+        $orderFields = [
+            ['created_at', __('Date')],
+        ];
+
+        if (is_null($id)) {
+            $orderFields[] = ['item_name', __('Stock Name')];
+        }
+
+        $where = null;
+
+        if(!is_null($itemType)){
+            $where['item_type'] = $itemType;
+        }
+
+        if (!is_null($userId)) {
+            $where['user_id'] = $userId;
+        } else {
+            $searchFields[] = ['email', __('Email')];
+        }
+
+        if (!is_null($transactionType)) {
+            $where['status'] = config('commonconfig.payment_slug.' . $transactionType);
+        }
+
+        $select = ['withdrawals.*', 'item', 'item_name', 'email','item_type'];
         $joinArray = [
             ['stock_items', 'stock_items.id', '=', 'withdrawals.stock_item_id'],
             ['users', 'users.id', '=', 'withdrawals.user_id'],

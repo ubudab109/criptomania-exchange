@@ -27,6 +27,7 @@ Route::group(['namespace' => 'User\Admin'], function () {
     Route::resource('coins-pairs', 'StockPairController')->parameter('coins-pairs', 'id')->names('admin.stock-pairs');
 
     Route::get('review-withdrawals', 'WithdrawalController@index')->name('admin.review-withdrawals.index');
+    Route::get('review-withdrawals-real-currency', 'WithdrawalController@indexCurrencyReal')->name('admin.review-withdrawals-real-currency.index');
     Route::get('review-withdrawals/{id}/show', 'WithdrawalController@show')->name('admin.review-withdrawals.show');
     Route::put('review-withdrawals/{id}/approve', 'WithdrawalController@approve')->name('admin.review-withdrawals.approve');
     Route::put('review-withdrawals/{id}/approveBank', 'WithdrawalController@approveBank')->name('admin.review-withdrawals.approveBank');

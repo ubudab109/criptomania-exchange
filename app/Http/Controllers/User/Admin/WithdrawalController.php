@@ -27,11 +27,20 @@ class WithdrawalController extends Controller
 
     public function index()
     {
-        // $transactionType = PAYMENT_REVIEWING;
-        $data['list'] = app(ReportsService::class)->withdrawals(null, null, null);
+        $transactionType = PAYMENT_PENDING;
+        $data['list'] = app(ReportsService::class)->withdrawals(null, null, null, API_BITCOIN);
         $data['title'] = __('Withdrawals for Reviewing');
 
         return view('backend.review_withdrawals.withdrawal', $data);
+    }
+
+    public function indexCurrencyReal()
+    {
+        // $transactionType = PAYMENT_PENDING;
+        $data['currency'] = app(ReportsService::class)->withdrawalsRealCurrency(null, null, null, CURRENCY_REAL);
+        $data['titleOpen'] = __('Real Currency Withdrawals for Reviewing');
+
+        return view('backend.review_withdrawals.realCurrencyWithdrawal', $data);
     }
 
     public function show($id)

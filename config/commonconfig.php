@@ -126,5 +126,7 @@ return [
         'to-wallet-as-referral_earning' => INCREASED_TO_WALLET_AS_REFERRAL_EARNING_ON_SUCCESSFUL_TRANSACTION,
 
         'from-admin-give-amount-after-deposit-bank-is-completed' => INCREASED_TO_USER_WALLET_ON_TRANSFER_BY_ADMIN,
+
+        'decreased-from-system-on-transfer-by-admin' => DECREASED_FROM_SYSTEM_ON_TRANSFER_BY_ADMIN,
     ],
 ];
