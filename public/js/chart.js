@@ -21,6 +21,17 @@ if (screen.width > 1366) {
 }
 const candleSeries = chart.addCandlestickSeries();
 
+chart.applyOptions({
+    watermark: {
+        color: 'rgba(11, 94, 29, 0.4)',
+        visible: true,
+        text: 'Criptomania',
+        fontSize: 18,
+        horzAlign: 'left',
+        vertAlign: 'bottom',
+    },
+});
+
 
 function splitData(rawData) {
     let categoryData = [];

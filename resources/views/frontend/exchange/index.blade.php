@@ -433,7 +433,7 @@
 
 @endsection
 @section('content')
-@include('frontend.exchange.stock_pair_summary')
+{{-- @include('frontend.exchange.stock_pair_summary') --}}
 <div class="container-fluid p-0">
     <div class="row no-gutters">
         @include('frontend.exchange.stock_market')

@@ -416,6 +416,13 @@
         sellOrderTable = $('#sell_order_table').DataTable({
             destroy: true,
             paging: false,
+            columnDefs: [
+                { 
+                    width:"2%",
+                    targets: [0],
+                },
+            ],
+            ordering: false,
             order: [[0, 'asc']],
             searching: false,
             info: false,
@@ -489,28 +496,48 @@
             },
             columns: [
                 {
-                    data: 'price',
+                    data: null,
                     orderable: false,
+                    className: 'red text-center',
+                    render: function (data) {
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            return number_format(data.price, 0);
+                        }
+                        else{
+                            return number_format(data.price, 2);
+                        }
+
+                    }
 
                 },
                 {
                     data: "amount",
                     orderable: false,
+                    className: 'text-center',
                 },
+                // {
+                //     data: "total",
+                //     orderable: false,
+                // },
                 {
-                    data: "total",
+                    data: null,
                     orderable: false,
-                },
-                {
-                    data: 'total_base_item',
-                    orderable: false,
-                    className: 'min-desktop',
+                    className: 'min-desktop text-center',
                     render: function (data) {
-                        return number_format(data, 2);
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            return number_format(data.total_base_item, 0);
+
+                        }
+                        else{
+                            return number_format(data.total_base_item, 2);
+                        }
                     }
                 }
             ]
         });
+        sellOrderTable.columns.adjust().draw();
 
     }
 

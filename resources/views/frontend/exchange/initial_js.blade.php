@@ -1,5 +1,7 @@
 <script>
     let defaultBaseId = parseInt({{ $stockPair->base_item_id }});
+    let defaultBaseCurrencyId = parseInt({{ $stockPair->baseItem->item_type }});
+    let currencyReal = '{{CURRENCY_REAL}}';
     let defaultStockId = parseInt({{ $stockPair->stock_item_id }});
     let defaultStockPairId = parseInt({{ $stockPair->id }});
     let defaultInterval = parseInt({{ $chartInterval }});
@@ -135,6 +137,10 @@
                         }
                         return change + number_format(Math.abs(data), 2);
                     }
+                },
+                {
+                    data: "base_item_id",
+                    visible: false
                 }
             ]
         });
