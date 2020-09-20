@@ -462,7 +462,7 @@
                             Market</a>
                     </li> --}} -->
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content" style="height: 464px;">
                     <!--      {{-- <div class="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
                         <div class="d-flex justify-content-between">
                             @include('frontend.exchange.trading.buy_trade_limit_form')

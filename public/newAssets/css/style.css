@@ -570,12 +570,22 @@ header .nav-link.btn {
   width: 65%;
 }
 
-.order-book table,
+/* .order-book table,
 .order-book tr,
 .order-book td,
 .order-book th {
   width: 100%;
   table-layout: fixed;
+} */
+
+.order-book table,
+.order-book th,
+.order-book tr {
+  width: 100%;
+}
+
+.order-book td {
+  width: 300px;
 }
 
 .order-book tr {
@@ -734,7 +744,7 @@ header .nav-link.btn {
 }
 
 .ob-heading td:first-child {
-  width: 65%;
+  width: 35% !important;
 }
 
 .order-book tbody {
@@ -876,13 +886,12 @@ tbody.ob-heading {
 
 /* *myCSS */
 
-.row-exchange-title
-{
-    /*display: -ms-flexbox;*/
-    display: flex;
-    /*-ms-flex-wrap: wrap;*/
-    flex-wrap: wrap;
-    margin-left: -15px;
+.row-exchange-title {
+  /*display: -ms-flexbox;*/
+  display: flex;
+  /*-ms-flex-wrap: wrap;*/
+  flex-wrap: wrap;
+  margin-left: -15px;
 
 }
 

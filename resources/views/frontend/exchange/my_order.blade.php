@@ -5,6 +5,10 @@
                 <a class="nav-link active" data-toggle="pill" href="#order-history" role="tab" aria-selected="false">My
                     Order</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#my_trade" role="tab"
+                    aria-selected="false">{{ __('MY TRADES') }}</a>
+            </li>
         </ul>
         @auth
         <div class="tab-content">
@@ -19,6 +23,18 @@
                             <th class="hide_in_mobile">{{ __('DATE') }}</th>
                             <th class="hide_in_mobile">{{ __('STOP') }}</th>
                             <th>{{ __('ACTION') }}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="my_trade" role="tabpanel">
+                <table id="my_trade_table" class="table datatable dt-responsive display nowrap dc-table"
+                    style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="all" style="width:100px;">{{ __('PRICE') }}</th>
+                            <th class="text-center">{{ __('AMOUNT') }}</th>
+                            <th class="min-desktop">{{ __('DATE') }}</th>
                         </tr>
                     </thead>
                 </table>
