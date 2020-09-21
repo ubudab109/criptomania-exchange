@@ -50,7 +50,14 @@
             destroy: true,
             paging: false,
             order: [[0, 'asc']],
-            dom: 'f<"filter">t',
+            ordering:false,
+            columnDefs: [
+                { 
+                    width:"2%",
+                    targets: [0],
+                },
+            ],
+            dom: 't',
             select: {
                 style: 'single',
                 selector: 'tr:not(.selected)'
@@ -107,21 +114,21 @@
             columns: [
                 {
                     data: "stock_item_abbr",
-                    className: "text-center",
+                    // className: "text-center",
                 },
                 {
                     data: "last_price",
                     className: "text-center",
 
                 },
-                {
-                    data: "exchanged_base_item_volume_24",
-                    className: "text-center",
+                // {
+                //     data: "exchanged_base_item_volume_24",
+                //     className: "text-center",
 
-                    render: function (data) {
-                        return number_format(data, 3)
-                    }
-                },
+                //     render: function (data) {
+                //         return number_format(data, 3)
+                //     }
+                // },
                 {
                     data: "change_24",
                     className: "text-center",
@@ -143,6 +150,18 @@
                     visible: false
                 }
             ]
+        });
+
+        // tab base item baru
+        $('.tab-base-coin').on('click',function(){
+            stockMarketTable.column(4)
+                               .search( $(this).attr('value') )
+                               .draw()
+         });
+
+        //  search base item baru
+        $('#myInput').on( 'keyup', function () {
+            stockMarketTable.search( this.value ).draw();
         });
 
         $(document).on('change', '#datatable-filter', function () {

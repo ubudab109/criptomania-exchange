@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Exchange;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\StockPair;
 use App\Repositories\Exchange\Interfaces\StockExchangeInterface;
 use App\Repositories\User\Trader\Interfaces\StockOrderInterface;
 use App\Services\Backend\ExchangeDashboardService;
@@ -41,6 +42,8 @@ class ExchangeDashboardController extends Controller
             cookie()->forever('chartZoom', $data['chartZoom']);
         }
 
+        $data['base_coins'] = StockPair::join('stock_items', 'stock_items.id', '=', 'stock_pairs.base_item_id')->SELECT(['item', 'item_name', 'stock_pairs.*'])->orderBy('base_item_id', 'asc')->get();
+
         return view('frontend.exchange.index', $data);
     }
 
@@ -77,7 +80,7 @@ class ExchangeDashboardController extends Controller
     public function getChartData(Request $request)
     {
         $chartData = app(StockGraphDataService::class)->getGraphData($request->stock_pair_id, $request->interval);
-//        $chartData = json_decode(file_get_contents(asset('dummy-chart-data.json')), true);
+        //        $chartData = json_decode(file_get_contents(asset('dummy-chart-data.json')), true);
         return response()->json($chartData)->cookie('stockPairID', $request->stock_pair_id)->cookie('chartInterval', $request->interval);
     }
 
@@ -121,6 +124,4 @@ class ExchangeDashboardController extends Controller
         $walletSummary = $this->exchangeService->getWalletSummary($request->stock_pair_id);
         return response()->json($walletSummary);
     }
-
-
 }
