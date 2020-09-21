@@ -1,6 +1,7 @@
 <script>
-
     let defaultBaseId = parseInt({{ $stockPair->base_item_id }});
+    let defaultBaseCurrencyId = parseInt({{ $stockPair->baseItem->item_type }});
+    let currencyReal = '{{CURRENCY_REAL}}';
     let defaultStockId = parseInt({{ $stockPair->stock_item_id }});
     let defaultStockPairId = parseInt({{ $stockPair->id }});
     let defaultInterval = parseInt({{ $chartInterval }});
@@ -49,11 +50,12 @@
             destroy: true,
             paging: false,
             order: [[0, 'asc']],
-            dom: '<"filter">ft',
+            dom: 'f<"filter">t',
             select: {
                 style: 'single',
                 selector: 'tr:not(.selected)'
             },
+            responsive: true,
             scrollY: 500,
             scrollCollapse: true,
             language: {search: "", searchPlaceholder: "{{ __('Search...') }}"},
@@ -76,6 +78,10 @@
                 }
             },
             initComplete: function () {
+                $('.dataTables_filter').addClass('pull-left');
+                $('input[type="search"]').css(
+                    {'width':'auto'}
+                );
                 stockMarketTable.column(4).search(defaultBaseId).draw();
                 let selectedRowData = stockMarketTable.row({selected: true}).data();
                 updateStockPairSummary(selectedRowData);
@@ -101,18 +107,25 @@
             columns: [
                 {
                     data: "stock_item_abbr",
+                    className: "text-center",
                 },
                 {
                     data: "last_price",
+                    className: "text-center",
+
                 },
                 {
                     data: "exchanged_base_item_volume_24",
+                    className: "text-center",
+
                     render: function (data) {
                         return number_format(data, 3)
                     }
                 },
                 {
                     data: "change_24",
+                    className: "text-center",
+
                     render: function (data) {
                         let change = '';
                         if (parseFloat(data) > 0) {

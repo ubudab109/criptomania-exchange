@@ -345,6 +345,57 @@ class ReportsService
         return app(DataListService::class)->dataList($query, $searchFields, $orderFields);
     }
 
+
+    public function openOrdersStockPair($categoryType = null, $stockPairId)
+    {
+        $searchFields = [
+            ['stock_orders.stock_pair_id', __('Market')],
+            ['stock_orders.price', __('Price')],
+            ['stock_orders.amount', __('Amount')],
+            ['email', __('Email')],
+        ];
+
+        $orderFields = [
+            ['stock_orders.price', __('Price')],
+            ['stock_orders.amount', __('Amount')],
+            ['stock_order.created_at', __('Date')],
+        ];
+
+        $where = [
+            ['stock_orders.status', '<', STOCK_ORDER_COMPLETED],
+            ['stock_orders.stock_pair_id', '=', $stockPairId],
+        ];
+
+        if (!is_null($categoryType)) {
+            $where['stock_orders.category'] = config('commonconfig.category_slug.' . $categoryType);
+        }
+
+        $select = [
+            'stock_orders.*',
+            // stock item
+            'stock_items.id as stock_item_id',
+            'stock_items.item as stock_item_abbr',
+            'stock_items.item_name as stock_item_name',
+            'stock_items.item_type as stock_item_type',
+            // base item
+            'base_items.id as base_item_id',
+            'base_items.item as base_item_abbr',
+            'base_items.item_name as base_item_name',
+            'base_items.item_type as base_item_type',
+            'email',
+        ];
+        $joinArray = [
+            ['stock_pairs', 'stock_pairs.id', '=', 'stock_orders.stock_pair_id'],
+            ['stock_items', 'stock_items.id', '=', 'stock_pairs.stock_item_id'],
+            ['stock_items as base_items', 'base_items.id', '=', 'stock_pairs.base_item_id'],
+            ['users', 'users.id', '=', 'stock_orders.user_id'],
+        ];
+
+        $query = app(StockOrderInterface::class)->paginateWithFilters($searchFields, $orderFields, $where, $select, $joinArray);
+
+        return app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+    }
+
     public function referralUsers($id)
     {
         $searchFields = [

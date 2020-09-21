@@ -65,7 +65,9 @@ class ReportsController extends Controller
     }
 
     public function allWithdrawals($paymentTransactionType = null)
-    {
+    {   
+
+        $data['wallet'] = app(WalletInterface::class)->firstOrFail(['user_id' => Auth::id()], 'stockItem');     
         $data['list'] = $this->reportsService->withdrawals(Auth::id(), null, $paymentTransactionType);
         $data['title'] = __('Withdrawals');
         $data['status'] = $paymentTransactionType;

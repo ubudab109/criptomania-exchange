@@ -87,17 +87,13 @@ class WithdrawalController extends Controller
 
 
     /* 
-
-
         Doc Code : 1
         Developer : Daus
         Date : 23/07/2020
         Description : Method decline Bank dan approve Bank digunakan untuk menolak atau menerima request withdraw dari trader.
                       Fungsi ini hanya akan dijalankan dengan kondisi dimana payment_method dari withdraw adalah BANK_TRANSFER atau 4.
         NOTE : (JIKA TERJADI BUG SAAT WITHDRAW DENGAN TIPE TRANSAKSI SELAIN BANK TRANSFER. LIHAT KEMBALI FUNGSI INI!)
-
         
-
     */
 
      public function declineBank(Request $request, $id)

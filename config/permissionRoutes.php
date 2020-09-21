@@ -24,7 +24,8 @@ return [
             ],
             'audits' => [
                 ROUTE_GROUP_READER_ACCESS => [
-                    'audits.index'
+                    'audits.index',
+                    'audits.json'
                 ]
             ],
             'system_notice' => [
@@ -47,6 +48,7 @@ return [
             'id_management' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'admin.id-management.index',
+                    'admin.id-management-json',
                     'admin.id-management.show',
                 ],
                 ROUTE_GROUP_MODIFIER_ACCESS => [
@@ -57,7 +59,8 @@ return [
             'stock_management' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'admin.stock-items.index',
-                    'admin.stock-items.show'
+                    'admin.stock-items.show',
+                    'admin.stock-items.json'
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'admin.stock-items.create',
@@ -75,7 +78,8 @@ return [
             'stock_pair_management' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'admin.stock-pairs.index',
-                    'admin.stock-pairs.show'
+                    'admin.stock-pairs.show',
+                    'admin.stock-pairs.json',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'admin.stock-pairs.create',
@@ -104,6 +108,7 @@ return [
                     'admin.list-bank.index',
                     'admin.list-bank.show',
                     'admin.bank-list-trader.index',
+                    'admin.list-bank.json',
                 ],
 
                 ROUTE_GROUP_CREATION_ACCESS => [
@@ -125,6 +130,7 @@ return [
 
                 ROUTE_GROUP_READER_ACCESS => [
                     'rpcport.index',
+                    'rpcport.json',
                 ],
 
                  ROUTE_GROUP_CREATION_ACCESS => [
@@ -145,6 +151,7 @@ return [
                 ROUTE_GROUP_READER_ACCESS => [
 
                     'admin.api-service-name',
+                    'admin.api-service-name-json',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'admin.api-service-name-create',
@@ -163,6 +170,8 @@ return [
                     'admin.review-withdrawals.index',
                     'admin.review-withdrawals-real-currency.index',
                     'admin.review-withdrawals.show',
+                    'admin.review-withdrawals-bank.json',
+                    'admin.review-withdrawals-cryptocurrency.json',
                 ],
                 ROUTE_GROUP_MODIFIER_ACCESS => [
                     'admin.review-withdrawals.approve',
@@ -183,6 +192,7 @@ return [
             'transaction_reports' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'reports.admin.all-deposits',
+                    'reports.admin.all-deposits.json',
                     'reports.admin.wallets.deposits',
                     'reports.admin.all-withdrawals',
                     'reports.admin.wallets.withdrawals',
@@ -191,15 +201,22 @@ return [
                     'reports.admin.open-orders',
                     'reports.admin.stock-pairs.trades',
                     'reports.admin.stock-pairs.open-orders',
+                    'reports.admin.stock-pairs-id.open-orders',
                     'reports.admin.transaction.all-users',
                     'reports.admin.transaction.user',
-                    // 'reports.trader.deposits-bank'
-                ],
-                'transaction_bank_reports' => [
-
+                    'reports.admin.transaction.user.json',
+                    // 'reports.admin.sum-transaction.user.json',
+                    'reports.admin.trades.json',
                     'reports.admin.all-deposits-bank',
+                    'reports.admin.wallets.deposit.json',
                     'reports.admin.wallets.depositsBank',
-
+                    'reports.admin.all-deposits-bank.json',
+                    'reports.admin.deposits-bank.json',
+                    'reports.admin.all-withdrawals.json',
+                    'reports.admin.withdrawals.json',
+                    'reports.admin.stock-pairs.json',
+                    'reports.admin.open-orders.json',
+                    // 'reports.trader.deposits-bank'
                 ],
 
                 ROUTE_GROUP_MODIFIER_ACCESS => [
@@ -221,7 +238,9 @@ return [
                 ROUTE_GROUP_READER_ACCESS => [
                     'users.index',
                     'users.show',
+                    'users.json',
                     'admin.users.wallets',
+                    'admin.users.wallets.json',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'users.create',
@@ -239,6 +258,7 @@ return [
             ROUTE_SUB_SECTION_ROLE_MANAGEMENTS => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'user-role-managements.index',
+                    'user-role-managements.json',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'user-role-managements.create',
@@ -294,7 +314,9 @@ return [
                     'exchange.ico.index',
                     'exchange.ico.indexFrontEnd',
                     'reports.trader.trades',
+                    'reports.trader.trades.json',
                     'trader.orders.open-orders',
+                    'trader.orders.open-orders-json',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
                     'trader.orders.store',
@@ -309,6 +331,7 @@ return [
             'wallets' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'trader.wallets.index',
+                    'trader.wallets.json',
 
                 ],
                 'deposit_access' => [
@@ -316,9 +339,12 @@ return [
                     'trader.wallets.deposit.store',
                     'reports.trader.all-deposits',
                     'reports.trader.deposits',
+                    'reports.trader.deposits.json',
+                    'reports.trader.alldeposits.json',
                 ],
                 'deposit_bank_access' => [
                     'reports.trader.deposits-bank',
+                    'reports.trader.deposits-bank.json',
                     'trader.wallets.deposit.storeBank',
                     'reports.trader.all-deposits-bank',
                     'trader.wallets.deposit.struckUpload',
@@ -327,6 +353,8 @@ return [
                 ],
                 'withdrawal_access' => [
                     'trader.wallets.withdrawal',
+                    'reports.trader.withdrawals.json',
+                    'reports.trader.all-withdrawals.json',
                     'trader.wallets.withdrawal.store',
                     'reports.trader.all-withdrawals',
                     'reports.trader.withdrawals',
@@ -335,6 +363,7 @@ return [
             'referral' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'reports.trader.referral',
+                    'reports.trader.referral.json',
                     'reports.trader.referral-earning',
                     'profile.referral',
                 ],
@@ -347,6 +376,7 @@ return [
             'bank-trader' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'trader.trader-bank.index',
+                    'trader.trader-bank.json',
 
                 ],
 
@@ -400,11 +430,11 @@ return [
         'account.index',
         'account.update',
         'account.logout',
+        'notices.json',
         'notices.index',
         'notices.mark-as-read',
         'notices.mark-all-as-read',
         'notices.mark-as-unread',
-        'notices.mark-all-as-read',
         'user_setting.change_password',
         'user_setting.update_password',
         'user_setting.change_pin',

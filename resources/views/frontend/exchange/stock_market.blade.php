@@ -1,67 +1,63 @@
-<div id="fixed-stock-market">
-    <div>
-        <div class="box box-borderless">
-            <button id="fixed-stock-market-toggler" class="btn btn-primary"><i class="fa fa-bars"></i> <span class="stock_item"></span><span>/</span><span class="base_item"></span></button>
-            <div class="box-header">
-                <h3 class="box-title text-uppercase">{{ __('Markets') }}</h3>
+<div class="col-md-3">
+    <div class="market-pairs">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm"><i class="icon ion-md-search"></i></span>
             </div>
-            <div class="box-body" id="stock-market-section">
-                <table id="stock_market_table" class="table table-hover table-responsive small exchange-table">
+            <input type="text" class="form-control" placeholder="Search" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"><i
+                        class="icon ion-md-star"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="pill" href="#BTC" role="tab" aria-selected="true">BTC</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#ETH" role="tab" aria-selected="false">ETH</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#NEO" role="tab" aria-selected="false">NEO</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#USDT" role="tab" aria-selected="false">USDT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#DAI" role="tab" aria-selected="false">DAI</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="STAR" role="tabpanel">
+                <table id="stock_market_table" class="table table-hover small exchange-table stock-market">
                     <thead>
-                    <tr>
-                        <th>{{ __('STOCK') }}</th>
-                        <th>{{ __('PRICE') }}</th>
-                        <th>{{ __('VOLUME') }}</th>
-                        <th>{{ __('CHANGE') }}</th>
-                    </tr>
+                        <tr>
+                            <th>{{ __('STOCK') }}</th>
+                            <th>{{ __('PRICE') }}</th>
+                            <th>{{ __('VOLUME') }}</th>
+                            <th>{{ __('CHANGE') }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
-
-        <br>
-        <div class="nav-tabs-custom full-in-small" style="cursor: move;">
-            <ul class="nav nav-tabs ui-sortable-handle">
-                <li class="active">
-                    <a href="#market_trade" data-toggle="tab" aria-expanded="false">{{ __('MARKET TRADES') }}</a>
-                </li>
-                @auth
-                    <li class="">
-                        <a href="#my_trade" data-toggle="tab" aria-expanded="true">{{ __('MY TRADES') }}</a>
-                    </li>
-                @endauth
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="market_trade">
-                    <table id="trade_history_table" class="table table-hover table-responsive small exchange-table"
-                           style="width:100%">
-                        <thead>
-                        <tr>
-                            <th class="text-center">{{ __('PRICE') }}</th>
-                            <th class="text-center">{{ __('AMOUNT') }}</th>
-                            <th class="hide_in_mobile">{{ __('DATE') }}</th>
-
-                            
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-                @auth
-                    <div class="tab-pane" id="my_trade">
-                        <table id="my_trade_table" class="table table-hover table-responsive small exchange-table"
-                               style="width:100%">
-                            <thead>
-                            <tr>
-                                <th class="text-center">{{ __('PRICE') }}</th>
-                                <th class="text-center">{{ __('AMOUNT') }}</th>
-                                <th class="hide_in_mobile">{{ __('DATE') }}</th>
-                                
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                @endauth
-            </div>
-        </div>
         </div>
     </div>
 </div>
+{{-- <div class="col-md-3">
+    <div class="container">
+        <div class="container-market">
+            <div class="box-body" id="stock-market-section">
+                <table id="stock_market_table" class="table table-hover small exchange-table stock-market">
+                    <thead>
+                        <tr>
+                            <th>{{ __('STOCK') }}</th>
+<th>{{ __('PRICE') }}</th>
+<th>{{ __('VOLUME') }}</th>
+<th>{{ __('CHANGE') }}</th>
+</tr>
+</thead>
+</table>
+</div>
+</div>
+</div>
+</div> --}}

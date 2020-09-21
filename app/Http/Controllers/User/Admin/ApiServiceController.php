@@ -12,20 +12,19 @@ use App\Http\Requests\User\Admin\ApiServiceRequest;
     Developer   : Muhammad Rizky Firdaus
     Date        : 26-08-2020
     Description : Controller for Api Service CRUD
-
 */
 class ApiServiceController extends Controller
 {
-	public $apiservice;
+    public $apiservice;
     
     public function __construct(ApiServiceInterface $apiservice)
     {
-    	$this->apiservice = $apiservice;
+        $this->apiservice = $apiservice;
     }
 
     public function index()
     {
-    	$searchFields = [
+        $searchFields = [
             ['api_name', __('Api Name')],
             ['api_value', __('Api Core Name')],
         ];

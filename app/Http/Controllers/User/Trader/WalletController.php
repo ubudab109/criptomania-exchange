@@ -26,7 +26,7 @@ use App\Services\Core\FileUploadService;
 use App\Repositories\User\Admin\Interfaces\StockItemInterface;
 use App\Repositories\User\Trader\Interfaces\DepositBankInterface;
 use App\Events\Exchange\BroadcastNotification;
-use \Illuminate\Support\Facades\Route;
+use App\Models\User\DepositBankTransfer;
 
 
 class WalletController extends Controller
@@ -50,7 +50,6 @@ class WalletController extends Controller
         Modified by : Muhammad Rizky Firdaus & Muhammad Fatur Prayuda
         Date        : 13-08-2020
         Description : Adding new statement in index() method to calling bitcoin IPN
-
         NOTE: This method may not work for other cryptocurrencies, this method is still under development.
     */
     public function index()
@@ -119,9 +118,7 @@ class WalletController extends Controller
         Developer   : Muhammad Rizky Firdaus
         Date        : 20-02-2020
         Description : method storeDepositWithBank is used for deposit with bank transfer, especially in IDR Currency
-
         NOTE :  THIS METHOD CAN USE TO ANOTHER CURRENCY WHICH IS USE BANK TRANSFER TYPE TO DEPOSIT
-
     */
 
     public function storeDepositWithBank(DepositBankRequest $request, $id)
@@ -226,7 +223,6 @@ class WalletController extends Controller
         /*
             
             This is end method bank transfer deposit
-
         */
 
 
@@ -265,7 +261,6 @@ class WalletController extends Controller
         Date        : 21-07-2020
         Description : Update method withdraw for bank transfer from line 309 to End Line
         Method      : storeWithdrawal()
-
     */
 
     public function storeWithdrawal(WithdrawalRequest $request, $id)

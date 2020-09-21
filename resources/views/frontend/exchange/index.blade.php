@@ -1,8 +1,101 @@
 @extends('backend.layouts.top_navigation_layout')
 @section('title', $title)
 @section('after-style')
-<link rel="stylesheet" href="{{ asset('common/vendors/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}">
+<!-- {{-- <link rel="stylesheet" href="{{ asset('common/vendors/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}"> --}} -->
 <style>
+    body {
+        overflow-X: hidden;
+    }
+
+    .container-market {
+        padding: 5px 0;
+    }
+
+    .dataTables_filter {
+        margin: 0 20%;
+
+    }
+
+    .border-btn {
+        box-sizing: border-box;
+        min-width: 0px;
+        height: 40px;
+        /* margin: 120px 0 -100px 0; */
+        border-width: 1px;
+        border-style: solid;
+        border-image: initial;
+        border-radius: 3px;
+        border-color: rgb(71, 77, 87);
+        padding-top: 10px;
+    }
+
+    .border-btn-sell {
+        box-sizing: border-box;
+        min-width: 0px;
+        height: 40px;
+        /* margin: 119px 0 -100px 0; */
+        border-width: 1px;
+        border-style: solid;
+        border-image: initial;
+        border-radius: 3px;
+        border-color: rgb(71, 77, 87);
+        padding-top: 10px;
+    }
+
+    .border-btn-sl {
+        box-sizing: border-box;
+        min-width: 0px;
+        height: 40px;
+        /* margin: 100px 0 -100px 0; */
+        border-width: 1px;
+        border-style: solid;
+        border-image: initial;
+        border-radius: 3px;
+        border-color: rgb(71, 77, 87);
+        padding-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .container-market {
+            padding: 5px 0;
+        }
+
+        .dataTables_filter {
+            margin: 0 30%;
+        }
+
+        .filter {
+            width: 470px;
+            position: relative;
+        }
+
+        .border-btn {
+            box-sizing: border-box;
+            min-width: 0px;
+            height: auto;
+            /* margin: 120px 0 -100px 0; */
+            border-width: 1px;
+            border-style: solid;
+            border-image: initial;
+            border-radius: 3px;
+            border-color: rgb(71, 77, 87);
+            padding-top: 10px;
+        }
+
+        .border-btn-sell {
+            box-sizing: border-box;
+            min-width: 0px;
+            height: auto;
+            /* margin: 119px 0 -100px 0; */
+            border-width: 1px;
+            border-style: solid;
+            border-image: initial;
+            border-radius: 3px;
+            border-color: rgb(71, 77, 87);
+            padding-top: 10px;
+        }
+    }
+
     #stock_market_table tbody tr:hover,
     #buy_order_table tbody tr:hover,
     #sell_order_table tbody tr:hover {
@@ -11,10 +104,6 @@
 
     .no-clicke-header {
         pointer-events: none;
-    }
-
-    .exchange-loader {
-        background-size: 150px;
     }
 
     .filter {
@@ -102,9 +191,11 @@
         margin-right: 10px;
     }
 
-    .filter {
-        width: 110px;
-        position: relative;
+    @media(min-width: 1336px) {
+        .filter {
+            width: 310px;
+            position: relative;
+        }
     }
 
     .filter::after {
@@ -132,7 +223,7 @@
     #datatable-filter {
         -moz-appearance: none;
         -webkit-appearance: none;
-        padding-right: 20px;
+        /* padding-right: 20px; */
         position: relative;
         z-index: 99999999;
         background: none;
@@ -339,75 +430,64 @@
         }
     }
 </style>
+
 @endsection
 @section('content')
-<div class="row nav-all">
-    <div class="col-md-8 col-sm-12 nav-chart">
-        <div class="box box-borderless full-in-small">
-            <div class="box-header" style="padding-bottom: 5px;border-bottom:1px solid #efefef">
-                @include('frontend.exchange.stock_pair_summary')
-            </div>
-
-            <div class="box-body" style="padding-top: 10px">
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        @include('frontend.exchange.stock_market')
+        <div class="col-md-6">
+            <div class="main-chart">
                 @include('frontend.exchange.chart')
             </div>
+            <div class="market-trade">
+                <ul class="nav nav-pills" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#pills-market" role="tab"
+                            aria-selected="false">Market</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#pills-stop-limit" role="tab"
+                            aria-selected="false">Stop
+                            Limit</a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="height: 464px;">
+                    <div class="tab-pane fade show active" id="pills-market" role="tabpanel">
+                        <div class="d-flex justify-content-between">
+                            @include('frontend.exchange.trading.buy_trade_market_form')
+                            @include('frontend.exchange.trading.sell_trade_market_form')
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-stop-limit" role="tabpanel">
+                        <div class="d-flex justify-content-between">
+                            @include('frontend.exchange.trading.buy_stop_limit_form')
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4 nav-market">
-        <div class="market-wide-screen"></div>
-    </div>
-</div>
+        @include('frontend.exchange.order_book')
+        @include('frontend.exchange.my_order')
 
-<div class="market-smal-Screen">
-    @include('frontend.exchange.stock_market')
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        @include('frontend.exchange.buy_form')
-    </div>
-
-    <div class="col-md-4">
-        @include('frontend.exchange.stop_limit_form')
-    </div>
-
-    <div class="col-md-4">
-        @include('frontend.exchange.sell_form')
     </div>
 </div>
-
-@include('frontend.exchange.order_book')
-@auth
-@include('frontend.exchange.my_order')
-@endauth
-
-
-
 @endsection
 
 @section('script')
-{{-- Device Screen --}}
-<script>
-    var x = window.matchMedia("(max-width: 700px)")
-    myFunction(x) // Call listener function at run time
-    function myFunction(x) {
-    if (x.matches) { // If media query matches
-        $('.market-wide-screen').remove();
-    } else {
-        var content = $('div.market-smal-Screen').html();
-        $('.market-wide-screen').html(content);
-        $('div.market-smal-Screen').remove();
-    }
-    }
-</script>
-{{-- End Device Screen --}}
+<script src="{{asset('newAssets/js/bootstrap.min.js')}}"></script>
+
 <script src="{{asset('common/vendors/bcmath/libbcmath-min.js')}}"></script>
 <script src="{{asset('common/vendors/bcmath/bcmath.js')}}"></script>
 <script src="{{asset('common/vendors/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <script src="{{asset('common/vendors/datatable_responsive/datatables/datatables.min.js')}}"></script>
-<script src="{{asset('common/vendors/datatable_responsive/datatables/plugins/bootstrap/datatables.bootstrap.js')}}">
-</script>
+<!-- <script src="{{ asset('common/vendors/datatable_responsive/datatables/jquery.dataTables.min.js') }}"></script> -->
+<script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('common/vendors/datatable_responsive/datatables/responsive.bootstrap4.min.js') }}"></script>
+
 <script src="{{asset('common/vendors/echart/echarts.min.js')}}"></script>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <script src="{{asset('js/chart.js')}}"></script>
 <script src="{{asset('common/vendors/cvalidator/cvalidator.js')}}"></script>
 

@@ -50,11 +50,12 @@
 @section('script')
     <!-- for datatable and date picker -->
     <script src="{{ asset('common/vendors/datepicker/datepicker.js') }}"></script>
-    <script src="{{asset('common/vendors/datatable_responsive/datatables/datatables.min.js')}}"></script>
-    <script src="{{asset('common/vendors/datatable_responsive/datatables/plugins/bootstrap/datatables.bootstrap.js')}}"></script>
-    <script src="{{asset('common/vendors/datatable_responsive/table-datatables-responsive.js')}}"></script>
+   <script src="{{ asset('common/vendors/datatable_responsive/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('common/vendors/datatable_responsive/datatables/responsive.bootstrap4.min.js') }}"></script>
     <script type="text/javascript">
-        //Init jquery Date Picker
+    //Init jquery Date Picker
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,

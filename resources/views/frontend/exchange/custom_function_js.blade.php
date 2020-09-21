@@ -214,7 +214,13 @@
 
 
     function updateStockPairSummary(data) {
-        $('#last_price').text(number_format(data.last_price));
+        if(defaultBaseCurrencyId == currencyReal)
+        {
+            $('#last_price').text(number_format(data.last_price, 0));
+        }
+        else{
+            $('#last_price').text(number_format(data.last_price));
+        }
         let change = '';
         if (parseFloat(data.change_24) > 0) {
             change = '<i class="fa fa-caret-up text-green"></i> ';
@@ -254,9 +260,9 @@
             success: function (data) {
                 chartData = data;
                 makeChart(document.getElementById('echart'), chartData);
-                $(window).resize(function () {
-                    eChart.resize();
-                })
+                // $(window).resize(function () {
+                //     eChart.resize();
+                // })
             }
         });
     }
@@ -298,10 +304,19 @@
         buyOrderTable = $('#buy_order_table').DataTable({
             destroy: true,
             order: [[0, 'desc']],
+            ordering: false,
             paging: false,
+            columnDefs: [
+                { 
+                    width:"2%",
+                    targets: [0],
+                },
+            ],
             searching: false,
+            responsive: true,
+            scrollCollapse: true,
             info: false,
-            scrollY: 385,
+            // scrollY: 385,
             ajax: {
                 url: '{{ route('exchange.get-orders') }}',
                 data: {
@@ -352,8 +367,8 @@
                 if (rowCount > orderBookRowPerPage) {
                     if ($('#buy_order_load_more').length == 0 && buyOrderTableLoadMore) {
                         let tbody = '<tbody id="buy_order_load_more">' +
-                            '<tr style="background-color: #a3ddd7">' +
-                            '<td colspan="4"><a onClick="loadMoreData(' + exchangeTypeBuy + ')" style="color:#08534c;float:right" href="javascript:;">{{ __('Load :loadCount more',['loadCount' => 50]) }}</a></td>' +
+                            '<tr class="all" style="background-color: #a3ddd7">' +
+                            '<td class="text-center" colspan="4"><a onClick="loadMoreData(' + exchangeTypeBuy + ')" style="color:#08534c;float:right" href="javascript:;">{{ __('Load :loadCount more',['loadCount' => 50]) }}</a></td>' +
                             '</tr>' +
                             '</tbody>';
                         $('#buy_order_table').append(tbody);
@@ -371,24 +386,41 @@
             },
             columns: [
                 {
-                    data: 'price',
+                    data: null,
                     orderable: false,
+                    className: 'all text-center green',
+                    render: function (data) {
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {return number_format(data.price, 0);}
+                        else{
+                            return number_format(data.price, 2);
+                        }
+                    }
 
                 },
                 {
                     data: "amount",
                     orderable: false,
+                    className:"text-center"
                 },
+                // {
+                //     data: 'total',
+                //     orderable: false,
+                //     className:"all",
+                //     render: function (data) {
+                //         return number_format(data, 4);
+                //     }
+                // },
                 {
-                    data: 'total',
+                    data: null,
                     orderable: false,
-                },
-                {
-                    data: 'total_base_item',
-                    orderable: false,
-                    className: 'hide_in_mobile_small',
+                    className: 'text-center min-desktop',
                     render: function (data) {
-                        return number_format(data);
+                        if(defaultBaseCurrencyId ==currencyReal)
+                        {return number_format(data.total_base_item, 0);}
+                        else{
+                            return number_format(data.total_base_item, 2);
+                        }
                     }
                 }
             ]
@@ -400,10 +432,17 @@
         sellOrderTable = $('#sell_order_table').DataTable({
             destroy: true,
             paging: false,
+            columnDefs: [
+                { 
+                    width:"2%",
+                    targets: [0],
+                },
+            ],
+            ordering: false,
             order: [[0, 'asc']],
             searching: false,
             info: false,
-            scrollY: 385,
+            // scrollY: 385,
             ajax: {
                 url: '{{ route('exchange.get-orders') }}',
                 data: {
@@ -470,31 +509,79 @@
             },
             createdRow: function (row, data) {
                 $(row).attr('id', hash(data.price));
+                $(row).addClass('red-bg-80')
+
             },
             columns: [
                 {
-                    data: 'price',
+                    data: null,
                     orderable: false,
+                    className: 'red text-center',
+                    render: function (data) {
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            return number_format(data.price, 0);
+                        }
+                        else{
+                            return number_format(data.price, 2);
+                        }
+
+                    }
 
                 },
                 {
                     data: "amount",
                     orderable: false,
+                    className: 'text-center',
                 },
+                // {
+                //     data: "total",
+                //     orderable: false,
+                // },
                 {
-                    data: "total",
+                    data: null,
                     orderable: false,
-                },
-                {
-                    data: 'total_base_item',
-                    orderable: false,
-                    className: 'hide_in_mobile_small',
+                    className: 'min-desktop text-center',
                     render: function (data) {
-                        return number_format(data);
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            return number_format(data.total_base_item, 0);
+
+                        }
+                        else{
+                            return number_format(data.total_base_item, 2);
+                        }
                     }
                 }
             ]
         });
+        // var test = $('#sell_order_table tbody tr').length
+        // var i;
+        // for(i = 0; i <= test; i++){
+        //     alert(i);
+        //     $('#sell_order_table tbody tr:eq('+i+')').addClass('red-bg-80');
+        // }
+        // var index = sellOrderTable.row( '#sell_order_table tbody tr' ).get(0);
+            // sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
+            // alert( 'Row index: '+index );
+
+        // $('#sell_order_table tbody').on( 'click', 'tr', function () {
+        //     var index = sellOrderTable.row( '#sell_order_table tbody tr' ).index(0);
+        //     sellOrderTable.rows(index).nodes().to$().addClass('red-bg-80');
+        //     alert( 'Row index: '+index );
+        // } );
+        
+        // $('#sell_orde_table tbody').on( 'click', 'td', function () {
+        //     var rowIdx = sellOrderTable
+        //         .row( this )
+        //         .index();
+        
+        //     sellOrderTable
+        //         .rows( rowIdx )
+        //         .nodes()
+        //         .to$()
+        //         .addClass( 'clicked' );
+        // } );
 
     }
 
@@ -574,11 +661,15 @@
     function initMyTradeHistoryTable() {
         myTradeHistoryTable = $('#my_trade_table').DataTable({
             destroy: true,
-            paging: false,
+            paging: true,
             searching: false,
+            lengthChange: false,
             order: [[0, 'desc']],
+            // fixedHeader: true,
+            // fixedColumn: true,
+            responsive: true,
             info: false,
-            scrollY: 300,
+            scrollY: 400,
             scrollCollapse: true,
             ajax: {
                 url: '{{ route('exchange.get-my-trade') }}',
@@ -597,43 +688,49 @@
                 {
                     data: null,
                     orderable: true,
-                    className: 'dt-body-center',
+                    className: 'all',
                     render: function (data) {
-                        let html = '<td style="color:red;"><a style="color:red">' + data.price + '</a></td>';
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            var price = number_format(data.price, 0);
+                        }
+                        else{
+                            var price = number_format(data.price, 2)
+                        }
+                        let html = '<td style="color:red; width: 100px;"><a style="color:red">' + price + '</a></td>';
 
                         if (data.exchange_type == exchangeTypeBuy) {
-                        html = '<td style="color:red;"><a style="color:green">' + data.price + '</a></td>';
+                        html = '<td style="color:red; width: 100px;"><a style="color:green">' + price + '</a></td>';
                            
                         }
 
                         return html;
                     }
                 },
-                // {
-                //     data: "price",
-                //     orderable: false,
-                //     className: 'dt-body-center'
-                // },
+ 
                 {
-                    data: "amount",
+                    data: null,
                     orderable: false,
-                    className: 'dt-body-center'
+                    className: 'all',
+                    render: function (data) {
+                        let html = '<td style="text-align:left;">' + data.amount + '</td>';
+                        return html;
+                    }
                 },
-                // {
-                //     data: null,
-                //     orderable: false,
-                //     className: 'dt-body-center hide_in_mobile_small',
-                //     render: function (data) {
-                //         return bcmul(data.amount, data.price);
-                //     }
-                // }
-                 {
+
+                {
                     data: "date",
                     orderable: false,
-                    className: 'hide_in_mobile'
+                    className: 'min-desktop'
                 }
             ]
         });
+
+        $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
+   if (e.target.hash == '#my_trade') {
+    myTradeHistoryTable.columns.adjust().draw()
+  }
+});
 
     }
 
@@ -644,7 +741,10 @@
             searching: false,
             order: [[0, 'desc']],
             info: false,
-            scrollY: 300,
+            ordering: false,
+            // fixedHeader: true,
+            fixedColumn: true,
+            // scrollY: 300,
             scrollCollapse: true,
             ajax: {
                 url: '{{ route('exchange.get-trade-histories') }}',
@@ -663,11 +763,18 @@
                 {
                     data: null,
                     orderable: false,
-                    className: 'dt-body-center',
+                    className: 'all text-center',
                     render: function (data) {
-                        let html = '<td style="color:red;"><a style="color:red">' + data.price + '</a></td>';
+                        if(defaultBaseCurrencyId == currencyReal)
+                        {
+                            var price = number_format(data.price, 0)
+                        }
+                        else{
+                            var price = number_format(data.price, 2)
+                        }
+                        let html = '<td style="color:red; width: 100px;"><a style="color:red">' + price + '</a></td>';
                         if (data.exchange_type == exchangeTypeBuy) {
-                        html = '<td style="color:red;"><a style="color:green">' + data.price + '</a></td>';
+                        html = '<td style="color:red; width: 100px;"><a style="color:green">' + price + '</a></td>';
                             
                            
                         }
@@ -676,21 +783,25 @@
                     }
                 },
                 {
-                    data: "amount",
+                    data: null,
                     orderable: false,
-                    className: 'dt-body-center'
+                    className: 'all text-center',
+                    render: function (data) {
+                        let html = '<td style="text-align:left;">' + data.amount + '</td>';
+                        return html;
+                    }
                 },
                 {
                     data: "date",
                     orderable: false,
-                    className: 'hide_in_mobile',
+                    className: 'min-desktop text-center',
                    
                 }
                
             ]
         });
 
-        initScroller();
+        // initScroller();
     }
 
     function rowHighlight(row, className, animationTime = 1000) {

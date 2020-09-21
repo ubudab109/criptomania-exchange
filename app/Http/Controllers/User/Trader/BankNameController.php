@@ -15,7 +15,6 @@ use App\Services\User\ProfileService;
     Developer   : Muhammad Rizky Firdaus
     Date        : 20-07-2020
     Description : Controller for superadmin bank account CRUD
-
 */
 
 
@@ -25,17 +24,17 @@ class BankNameController extends Controller
     private $service;
 
 
- 	public function __construct(BankNameInterface $bankName, ProfileService $service)
- 	{
- 		$this->bankName = $bankName;
+    public function __construct(BankNameInterface $bankName, ProfileService $service)
+    {
+        $this->bankName = $bankName;
         $this->service = $service;
 
 
- 	}   
+    }   
 
- 	public function index(){
+    public function index(){
 
- 		$searchFields = [
+        $searchFields = [
             ['bank_name', __('Bank Name')],
             ['account_number', __('Account Number')],
         ];
@@ -56,7 +55,7 @@ class BankNameController extends Controller
 
         return view('backend.userBank.index', $data);
 
- 	}
+    }
 
 
     public function edit($id)

@@ -14,16 +14,16 @@ use App\Repositories\User\Admin\Interfaces\StockItemInterface;
 
 class RpcController extends Controller
 {
-	protected $rpcrepository;
+    protected $rpcrepository;
 
     public function __construct(RpcInterface $rpcrepository){
 
-    	$this->rpcrepository = $rpcrepository;
+        $this->rpcrepository = $rpcrepository;
     }
 
     public function index(){
 
- 		$searchFields = [
+        $searchFields = [
             ['stock_items.item', __('Coin Name')],
             ['port', __('Port Number')],
         ];
@@ -42,9 +42,9 @@ class RpcController extends Controller
 
         return view('backend.rpcport.index', $data);
 
- 	}
+    }
 
- 	 public function create(){
+     public function create(){
 
         $data['stockItems'] = app(StockItemInterface::class)->getActiveList()->pluck('item', 'id')->toArray();
         $data['title'] = __('Create New Port');

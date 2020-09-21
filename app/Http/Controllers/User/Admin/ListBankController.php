@@ -16,25 +16,24 @@ use Illuminate\Support\Facades\DB;
     Developer   : Muhammad Rizky Firdaus
     Date        : 20-07-2020
     Description : Controller for trader bank account CRUD
-
 */
 
 class ListBankController extends Controller
 {
-	public $listBank;
+    public $listBank;
     public $bankName;
 
 
- 	public function __construct(ListBankInterface $listBank, BankNameInterface $bankName)
- 	{
- 		$this->listBank = $listBank;
+    public function __construct(ListBankInterface $listBank, BankNameInterface $bankName)
+    {
+        $this->listBank = $listBank;
         $this->bankName = $bankName;
 
- 	}   
+    }   
 
- 	public function index(){
+    public function index(){
 
- 		$searchFields = [
+        $searchFields = [
             ['bank_name', __('Bank Name')],
             ['account_number', __('Account Number')],
         ];
@@ -51,7 +50,7 @@ class ListBankController extends Controller
 
         return view('backend.listBank.index', $data);
 
- 	}
+    }
 
     // this is to show trader
     public function traderBank()
@@ -75,7 +74,7 @@ class ListBankController extends Controller
 
         return view('backend.listBank.traderBankIndex', $data);
     }
- 	
+    
     public function create()
     {
         $data['title'] = __('Create New Bank Number');

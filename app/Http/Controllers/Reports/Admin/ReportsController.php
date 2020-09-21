@@ -108,6 +108,7 @@ class ReportsController extends Controller
         $data['list'] = $this->reportsService->openOrders($userId);
         $data['title'] = __('Open Orders');
         $data['hideUser'] = $userId;
+        $data['hideStockPair'] = false;
 
         return view('backend.reports.open_orders', $data);
     }
@@ -120,12 +121,13 @@ class ReportsController extends Controller
         return view('backend.reports.trades', $data);
     }
 
-    public function openOrdersByStockPairId($id)
+    public function openOrdersByStockPairId($stockPairId, $categoryType = null)
     {
-        $data['list'] = $this->reportsService->openOrders(null, null, $id);
+        $data['list'] = $this->reportsService->openOrdersStockPair(null, $stockPairId);
         $data['title'] = __('Open Orders');
-        $data['hideUser'] = false;
+        $data['categoryType'] = $categoryType;
 
-        return view('backend.reports.open_orders', $data);
+
+        return view('backend.reports.open_orders_stock_pair', $data);
     }
 }
