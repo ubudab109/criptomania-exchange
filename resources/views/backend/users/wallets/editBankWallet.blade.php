@@ -5,15 +5,17 @@
     <div class="card-body">
         <div class="">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12">
                     <div class="box box-primary box-borderless">
                         <div class="box-header text-center with-border">
-                            <h3 class="box-title font-weight-bold">
-                                {{ __('Give :stockItem Amount With Deposit ID :depositId', ['stockItem' => $wallet->stockItem->item, 'depositId' => $depositBank->id]) }}
-                            </h3>
+                            <h5 class="box-title font-weight-bold">
+                                {{ __('Give :stockItem Amount With Ref ID ID :depositId', ['stockItem' => $wallet->stockItem->item, 'depositId' => $depositBank->ref_id]) }}
+                            </h5>
+                            <hr>
                             <!-- <h3>TEST</h3> -->
                             <a href="{{ route('reports.admin.all-deposits-bank') }}"
-                                class="btn btn-primary btn-sm back-button">{{ __('Back') }}</a>
+                                class="btn btn-primary btn-sm back-button pull-right">{{ __('Back') }}</a>
+                                <br>
                         </div>
                         <div class="box-body">
                             {!! Form::open(['route' => ['admin.users.wallets.updateDepoBank', 'id' => $wallet->user_id,
@@ -21,7 +23,7 @@
                             'class'=>'form-horizontal validator']) !!}
                             {{ Form::hidden('base_key', base_key()) }}
 
-                            <input type="hidden" class="form-control" value="{{ $depositBank->id }}"
+                            <input type="hidden" class="form-control"  value="{{ $depositBank->id }}"
                                 name="deposit_bank_id">
 
                             {{--primary_balance--}}
@@ -32,6 +34,7 @@
                                     $total = $wallet->stockItem->deposit_fee / 100.00;
                                     $temp = $depositBank->amount * $total;
                                     $subtotal = $depositBank->amount - $temp;
+
                                     @endphp
                                     <input type="text" class="form-control" value="{{$subtotal}}" readonly
                                         name="{{fake_field('amount')}}">
@@ -49,7 +52,7 @@
                             {{--submit button--}}
                             <div class="form-group">
                                 <div class="col-md-offset-4 col-md-8">
-                                    {{ Form::submit(__('Give Amount'),['class'=>'btn btn-success form-submission-button']) }}
+                                    {{ Form::submit(__('Give Amount'),['class'=>'btn btn-sm btn-success btn-flat btn-sm-block ']) }}
                                     @if($depositBank->status == PAYMENT_PENDING)
 
                                     @if(has_permission('admin.users.wallets.declineDepositBank'))
@@ -89,5 +92,16 @@
     $(document).ready(function () {
             $('.validator').cValidate({});
         });
+</script>
+<script>
+    function broadcast()
+    {
+         let userId = "{{$wallet->user_id}}";
+         let amount = "{{$subtotal}}";
+         let data = 'Your IDR was increased with'+amount;
+         let stockItemName = "{{$wallet->stockItem->item}}";
+         let channelPrefix = '{{ channel_prefix() }}';
+         Echo.channel(channelPrefix + 'notification.' + data + '.' + userId).listen('Exchange.BroadcastNotification');
+    }
 </script>
 @endsection
