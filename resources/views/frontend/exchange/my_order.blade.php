@@ -7,21 +7,22 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="pill" href="#my_trade" role="tab"
-                    aria-selected="false">{{ __('MY TRADES') }}</a>
+                    aria-selected="false">{{ __('My Trades') }}</a>
             </li>
         </ul>
         @auth
         <div class="tab-content">
             <div class="tab-pane fade show active" id="order-history" role="tabpanel">
-                <table id="my_open_order_table" class="table table-hover small exchange-table" style="width:100%">
+                <table id="my_open_order_table" class="table datatable dt-responsive display nowrap dc-table"
+                    style="width:100%">
                     <thead class="text-center">
                         <tr>
                             <th>{{ __('TYPE') }}</th>
                             <th>{{ __('PRICE') }}</th>
                             <th>{{ __('AMOUNT') }}</th>
-                            <th class="hide_in_mobile_small">{{ __('TOTAL') }}</th>
-                            <th class="hide_in_mobile">{{ __('DATE') }}</th>
-                            <th class="hide_in_mobile">{{ __('STOP') }}</th>
+                            <th class="min-desktop">{{ __('TOTAL') }}</th>
+                            <th class="min-desktop">{{ __('DATE') }}</th>
+                            <th class="min-desktop">{{ __('STOP') }}</th>
                             <th>{{ __('ACTION') }}</th>
                         </tr>
                     </thead>

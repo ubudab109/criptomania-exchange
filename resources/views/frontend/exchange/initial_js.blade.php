@@ -131,7 +131,7 @@
                 // },
                 {
                     data: "change_24",
-                    className: "text-center",
+                    className: "text-right",
 
                     render: function (data) {
                         let change = '';
@@ -154,9 +154,9 @@
 
         // tab base item baru
         $('.tab-base-coin').on('click',function(){
-            stockMarketTable.column(4)
-                               .search( $(this).attr('value') )
-                               .draw()
+            stockMarketTable.column(3)
+                            .search( $(this).attr('value') )
+                            .draw()
          });
 
         //  search base item baru
@@ -164,9 +164,9 @@
             stockMarketTable.search( this.value ).draw();
         });
 
-        $(document).on('change', '#datatable-filter', function () {
-            stockMarketTable.column(4).search(this.value).draw();
-        });
+        // $(document).on('change', '#datatable-filter', function () {
+        //     stockMarketTable.column(4).search(this.value).draw();
+        // });
 
         stockMarketTable.on('user-select', function (e, dt, type, cell, originalEvent) {
             if ( type === 'row') {

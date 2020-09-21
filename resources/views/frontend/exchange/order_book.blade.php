@@ -39,7 +39,7 @@
                 <tr>
                     <th class="all" style="color: #758696">{{ __('PRICE') }}</th>
                     <th class="all"><span class="stock_item"></span></th>
-                    <th class="min-desktop">{{ __('SUM') }}(<span class="base_item"></span>)</th>
+                    <th class="all">{{ __('SUM') }}(<span class="base_item"></span>)</th>
                 </tr>
             </thead>
         </table>

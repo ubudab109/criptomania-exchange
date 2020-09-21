@@ -629,18 +629,18 @@
                 },
                 {
                     data: null,
-                    className: 'hide_in_mobile_small',
+                    className: 'min-desktop',
                     render: function (data) {
                         return bcmul(data.amount, data.price);
                     }
                 },
                 {
                     data: "date",
-                    className: 'hide_in_mobile'
+                    className: 'min-desktop'
                 },
                 {
                     data: null,
-                    className: 'hide_in_mobile',
+                    className: 'min-desktop',
                     render: function (data) {
                         return data.stop_limit ? data.stop_limit : '-';
                     }
@@ -763,7 +763,7 @@
                 {
                     data: null,
                     orderable: false,
-                    className: 'all text-center',
+                    className: 'all text-left',
                     render: function (data) {
                         if(defaultBaseCurrencyId == currencyReal)
                         {
@@ -794,7 +794,7 @@
                 {
                     data: "date",
                     orderable: false,
-                    className: 'min-desktop text-center',
+                    className: 'min-desktop text-right',
                    
                 }
                
