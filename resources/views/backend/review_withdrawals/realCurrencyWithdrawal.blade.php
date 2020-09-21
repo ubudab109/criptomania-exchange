@@ -47,8 +47,8 @@
                                             <i class="fa fa-gear"></i>
                                         </button>
                                         <ul class="dropdown-menu pull-right">
-                                                <li><a href="{{ route('admin.review-withdrawals.show', $reviewWithdrawalReal->id)}}"><i class="fa fa-eye"></i> {{ __('Show') }}</a></li>
                                             @if( has_permission('admin.review-withdrawals.show') )
+                                                <li><a href="{{ route('admin.review-withdrawals.show', $reviewWithdrawalReal->id)}}"><i class="fa fa-eye"></i> {{ __('Show') }}</a></li>
                                             @endif
                                         </ul>
                                     </div>
