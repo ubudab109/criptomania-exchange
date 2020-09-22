@@ -8,13 +8,16 @@
                 aria-describedby="inputGroup-sizing-sm">
         </div>
         <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" style="color: #0000EE"><i class="fa fa-star"></i></a>
+            </li>
             @php
             $bc = '';
             @endphp
             @foreach($base_coins as $base_coin)
             @if($bc != $base_coin->item )
             <li class="nav-item">
-                <a class="nav-link active tab-base-coin" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"
+                <a class="nav-link tab-base-coin" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"
                     data-column="3" value="{{$base_coin->base_item_id}}">{{$base_coin->item}}</a>
             </li>
             @php

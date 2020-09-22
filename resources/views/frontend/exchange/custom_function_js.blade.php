@@ -507,9 +507,10 @@
 
 
             },
-            createdRow: function (row, data) {
-                $(row).attr('id', hash(data.price));
-                $(row).addClass('red-bg-80')
+            createdRow: function (row, data, dataIndex) {
+                // $(row).attr('id', hash(data.price));
+                $(row).attr('id', dataIndex);
+                // $(row).addClass('red-bg-80')
 
             },
             columns: [
@@ -555,6 +556,8 @@
                 }
             ]
         });
+        
+
         // var test = $('#sell_order_table tbody tr').length
         // var i;
         // for(i = 0; i <= test; i++){
@@ -565,10 +568,16 @@
             // sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
             // alert( 'Row index: '+index );
 
-        // $('#sell_order_table tbody').on( 'click', 'tr', function () {
-        //     var index = sellOrderTable.row( '#sell_order_table tbody tr' ).index(0);
-        //     sellOrderTable.rows(index).nodes().to$().addClass('red-bg-80');
-        //     alert( 'Row index: '+index );
+        // $(document).on( 'mousemove', function () {
+        //     // var index = sellOrderTable.row( '#sell_order_table tbody tr' ).index();
+        //     sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
+        //     sellOrderTable.rows(1).nodes().to$().addClass('red-bg-60');
+        //     sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
+        //     sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
+        //     sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
+        //     sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
+        //     sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
+        //     // alert( 'Row index: '+index );
         // } );
         
         // $('#sell_orde_table tbody').on( 'click', 'td', function () {
