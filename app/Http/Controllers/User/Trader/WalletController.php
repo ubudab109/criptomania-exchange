@@ -46,12 +46,6 @@ class WalletController extends Controller
         $this->notification = $notification;
     }
 
-    /*
-        Modified by : Muhammad Rizky Firdaus & Muhammad Fatur Prayuda
-        Date        : 13-08-2020
-        Description : Adding new statement in index() method to calling bitcoin IPN
-        NOTE: This method may not work for other cryptocurrencies, this method is still under development.
-    */
     public function index()
     {
         $this->walletRepository->createUnavailableWallet(Auth::id());
@@ -115,9 +109,9 @@ class WalletController extends Controller
 
     }
     /* 
-        Developer   : Muhammad Rizky Firdaus
-        Date        : 20-02-2020
-        Description : method storeDepositWithBank is used for deposit with bank transfer, especially in IDR Currency
+        @developer  Muhammad Rizky Firdaus
+        @since      20-02-2020
+        @desc       method storeDepositWithBank is used for deposit with bank transfer, especially in IDR Currency
         NOTE :  THIS METHOD CAN USE TO ANOTHER CURRENCY WHICH IS USE BANK TRANSFER TYPE TO DEPOSIT
     */
 

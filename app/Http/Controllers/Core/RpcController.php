@@ -14,6 +14,11 @@ use App\Repositories\User\Admin\Interfaces\StockItemInterface;
 
 class RpcController extends Controller
 {
+
+    /*
+        * @var class RpcController
+        * @desc this class is resource controller for CRUD RPC Port
+    */
     protected $rpcrepository;
 
     public function __construct(RpcInterface $rpcrepository){
