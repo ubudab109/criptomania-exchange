@@ -577,7 +577,7 @@ header .nav-link.btn {
 }
 
 .order-book td {
-  width: 300px;
+  width: 500px;
 }
 
 .order-book tr {
@@ -1024,10 +1024,13 @@ tbody.ob-heading {
 
 .market-history table,
 .market-history tr,
-.market-history td,
 .market-history th {
   width: 100%;
   table-layout: fixed;
+}
+
+.market-history td {
+  width: 35%;
 }
 
 .market-history tr {
@@ -2095,7 +2098,7 @@ tbody.ob-heading {
 
 @media only screen and (max-width: 1434px) {
   .market-pairs tbody {
-    height: 760px;
+    height: 930px;
   }
 
   .no-fluid .market-pairs tbody {
