@@ -426,6 +426,26 @@
             ]
         });
 
+        $(document).on( 'mousemove', function () {
+            buyOrderTable.rows(0).nodes().to$().addClass('green-bg-80');
+            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-60');
+            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-40');
+            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-20');
+            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-10');
+            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-5');
+            buyOrderTable.rows(6).nodes().to$().addClass('green-bg');
+        } );
+
+        $(document).on( 'touchstart', function () {
+            buyOrderTable.rows(0).nodes().to$().addClass('green-bg-80');
+            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-60');
+            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-40');
+            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-20');
+            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-10');
+            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-5');
+            buyOrderTable.rows(6).nodes().to$().addClass('green-bg');
+        } );
+
     }
 
     function initSellStockOrderTable() {
@@ -508,8 +528,8 @@
 
             },
             createdRow: function (row, data, dataIndex) {
-                // $(row).attr('id', hash(data.price));
-                $(row).attr('id', dataIndex);
+                $(row).attr('id', hash(data.price));
+                // $(row).attr('id', dataIndex);
                 // $(row).addClass('red-bg-80')
 
             },
@@ -568,17 +588,25 @@
             // sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
             // alert( 'Row index: '+index );
 
-        // $(document).on( 'mousemove', function () {
-        //     // var index = sellOrderTable.row( '#sell_order_table tbody tr' ).index();
-        //     sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
-        //     sellOrderTable.rows(1).nodes().to$().addClass('red-bg-60');
-        //     sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
-        //     sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
-        //     sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
-        //     sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
-        //     sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
-        //     // alert( 'Row index: '+index );
-        // } );
+        $(document).on( 'mousemove', function () {
+            sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
+            sellOrderTable.rows(1).nodes().to$().addClass('red-bg-60');
+            sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
+            sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
+            sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
+            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
+            sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
+        } );
+
+        $(document).on( 'touchstart', function () {
+            sellOrderTable.rows(0).nodes().to$().addClass('red-bg-80');
+            sellOrderTable.rows(1).nodes().to$().addClass('red-bg-60');
+            sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
+            sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
+            sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
+            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
+            sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
+        } );
         
         // $('#sell_orde_table tbody').on( 'click', 'td', function () {
         //     var rowIdx = sellOrderTable
