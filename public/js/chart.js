@@ -25,7 +25,7 @@ chart.applyOptions({
     watermark: {
         color: 'rgba(11, 94, 29, 0.4)',
         visible: true,
-        text: 'Criptomania',
+        text: 'KriptoMania',
         fontSize: 18,
         horzAlign: 'left',
         vertAlign: 'bottom',

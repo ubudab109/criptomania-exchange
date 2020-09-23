@@ -15,6 +15,8 @@ const TIMEZONE_DEFAULT = '+GMT';
 const ITEM_PER_PAGE = 10;
 const ORDER_PER_PAGE = 50;
 const TRADE_HISTORY_PER_PAGE = 50;
+const ORDER_LIMIT = 8;
+
 
 /*
  * Constant user and role IDs

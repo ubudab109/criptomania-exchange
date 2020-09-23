@@ -40,7 +40,8 @@ class StockOrderRepository extends BaseRepository implements StockOrderInterface
             ->select('price', DB::raw('truncate(sum(amount - exchanged), 8) as amount'), DB::raw('truncate((price*sum(amount - exchanged)), 8) as total'))
             ->orderBy('price', $orderBy)
             ->groupBy('price')
-            ->take(ORDER_PER_PAGE)
+            ->skip(0)
+            ->take(ORDER_LIMIT)
             ->get();
     }
 

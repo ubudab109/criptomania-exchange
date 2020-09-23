@@ -303,6 +303,7 @@
     function initBuyStockOrderTable() {
         buyOrderTable = $('#buy_order_table').DataTable({
             destroy: true,
+            serverSide: true,
             order: [[0, 'desc']],
             ordering: false,
             paging: false,
@@ -427,23 +428,25 @@
         });
 
         $(document).on( 'mousemove', function () {
-            buyOrderTable.rows(0).nodes().to$().addClass('green-bg-80');
-            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-60');
-            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-40');
-            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-20');
-            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-10');
-            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-5');
-            buyOrderTable.rows(6).nodes().to$().addClass('green-bg');
+            buyOrderTable.rows(0).nodes().to$().addClass('green-bg');
+            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-5');
+            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-8');
+            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-10');
+            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-20');
+            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-40');
+            buyOrderTable.rows(6).nodes().to$().addClass('green-bg-60');
+            buyOrderTable.rows(7).nodes().to$().addClass('green-bg-80');
         } );
 
         $(document).on( 'touchstart', function () {
-            buyOrderTable.rows(0).nodes().to$().addClass('green-bg-80');
-            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-60');
-            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-40');
-            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-20');
-            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-10');
-            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-5');
-            buyOrderTable.rows(6).nodes().to$().addClass('green-bg');
+            buyOrderTable.rows(0).nodes().to$().addClass('green-bg');
+            buyOrderTable.rows(1).nodes().to$().addClass('green-bg-5');
+            buyOrderTable.rows(2).nodes().to$().addClass('green-bg-8');
+            buyOrderTable.rows(3).nodes().to$().addClass('green-bg-10');
+            buyOrderTable.rows(4).nodes().to$().addClass('green-bg-20');
+            buyOrderTable.rows(5).nodes().to$().addClass('green-bg-40');
+            buyOrderTable.rows(6).nodes().to$().addClass('green-bg-60');
+            buyOrderTable.rows(7).nodes().to$().addClass('green-bg-80');
         } );
 
     }
@@ -452,6 +455,7 @@
         sellOrderTable = $('#sell_order_table').DataTable({
             destroy: true,
             paging: false,
+            serverSide: true,
             columnDefs: [
                 { 
                     width:"2%",
@@ -462,6 +466,8 @@
             order: [[0, 'asc']],
             searching: false,
             info: false,
+            // pageLength: 8,
+            recordsTotal: 8,
             // scrollY: 385,
             ajax: {
                 url: '{{ route('exchange.get-orders') }}',
@@ -594,8 +600,9 @@
             sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
             sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
             sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
-            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
-            sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
+            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-8');
+            sellOrderTable.rows(6).nodes().to$().addClass('red-bg-5');
+            sellOrderTable.rows(7).nodes().to$().addClass('red-bg');
         } );
 
         $(document).on( 'touchstart', function () {
@@ -604,8 +611,9 @@
             sellOrderTable.rows(2).nodes().to$().addClass('red-bg-40');
             sellOrderTable.rows(3).nodes().to$().addClass('red-bg-20');
             sellOrderTable.rows(4).nodes().to$().addClass('red-bg-10');
-            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-5');
-            sellOrderTable.rows(6).nodes().to$().addClass('red-bg');
+            sellOrderTable.rows(5).nodes().to$().addClass('red-bg-8');
+            sellOrderTable.rows(6).nodes().to$().addClass('red-bg-5');
+            sellOrderTable.rows(7).nodes().to$().addClass('red-bg');
         } );
         
         // $('#sell_orde_table tbody').on( 'click', 'td', function () {

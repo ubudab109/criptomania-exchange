@@ -55,7 +55,7 @@
             columnDefs: [
                 { 
                     width:"2%",
-                    targets: [1],
+                    targets: [0],
                 },
             ],
             dom: 't',
@@ -128,7 +128,7 @@
                            return '<i class="fa fa-money fa-lg text-green"></i>';
                         }
                         else{
-                            return '<img src='+itemEmoji+'/'+data+' alt="Item Emoji" style="width:20px;" class="img-sm cm-center">';
+                            return '<img src='+itemEmoji+'/'+data+' alt="Item Emoji" style="width:25px;" class="img-sm cm-center">';
                         }
 
                         
@@ -176,7 +176,7 @@
 
         // tab base item baru
         $('.tab-base-coin').on('click',function(){
-            stockMarketTable.column(3)
+            stockMarketTable.column(4)
                             .search( $(this).attr('value') )
                             .draw()
          });

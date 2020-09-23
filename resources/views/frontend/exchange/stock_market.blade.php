@@ -30,7 +30,7 @@
             @if($bc != $base_coin->item )
             <li class="nav-item">
                 <a class="nav-link tab-base-coin" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"
-                    data-column="3" value="{{$base_coin->base_item_id}}">{{$base_coin->item}}</a>
+                    data-column="4" value="{{$base_coin->base_item_id}}">{{$base_coin->item}}</a>
             </li>
             @php
             $bc = $base_coin->item;
