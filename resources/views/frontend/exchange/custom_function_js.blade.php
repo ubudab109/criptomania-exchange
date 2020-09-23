@@ -1,18 +1,18 @@
 <script>
-    function updateChartZoom() {
-        let zoom = calculateZoom();
+    // function updateChartZoom() {
+    //     let zoom = calculateZoom();
 
-        eChart.setOption({
-            dataZoom: [
-                {
-                    start: zoom
-                },
-                {
-                    start: zoom
-                }
-            ]
-        });
-    }
+    //     eChart.setOption({
+    //         dataZoom: [
+    //             {
+    //                 start: zoom
+    //             },
+    //             {
+    //                 start: zoom
+    //             }
+    //         ]
+    //     });
+    // }
 
     function updateStockMarketTable(data) {
         let row = stockMarketTable.row('#stock_market' + data.stock_pair_id);

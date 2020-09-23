@@ -6,6 +6,7 @@
     let defaultStockPairId = parseInt({{ $stockPair->id }});
     let defaultInterval = parseInt({{ $chartInterval }});
     let defaultZoom = parseInt({{ $chartZoom }});
+    let itemEmoji = "{{url('storage/images/stock-emoji/')}}";
     let stockMarketTable = '';
     let buyOrderTable = '';
     let sellOrderTable = '';
@@ -54,7 +55,7 @@
             columnDefs: [
                 { 
                     width:"2%",
-                    targets: [0],
+                    targets: [1],
                 },
             ],
             dom: 't',
@@ -114,8 +115,26 @@
             columns: [
                 {
                     data: "stock_item_abbr",
-                    // className: "text-center",
+                    visible: false
                 },
+
+                {
+                    data: 'item_emoji',
+                    className: "text-left",
+                    render : function (data) {
+                        let html = '';
+                        if(data == null)
+                        {
+                           return '<i class="fa fa-money fa-lg text-green"></i>';
+                        }
+                        else{
+                            return '<img src='+itemEmoji+'/'+data+' alt="Item Emoji" style="width:20px;" class="img-sm cm-center">';
+                        }
+
+                        
+                    }
+                },
+
                 {
                     data: "last_price",
                     className: "text-center",
@@ -148,7 +167,10 @@
                 {
                     data: "base_item_id",
                     visible: false
-                }
+                },
+
+
+
             ]
         });
 
@@ -244,14 +266,14 @@
             $('#candlestick li').removeClass('disabled');
             $(this).closest('li').addClass('disabled');
             initStockChart(defaultStockPairId, defaultInterval);
-            updateChartZoom();
+            // updateChartZoom();
         });
 
         $(document).on('click', '#candlestick_zoom li a', function (event) {
             $('#candlestick_zoom li').removeClass('disabled');
             $(this).closest('li').addClass('disabled');
             defaultZoom = parseInt($(this).data('zoom'));
-            updateChartZoom();
+            // updateChartZoom();
         });
 
         // Stock Market Toggling

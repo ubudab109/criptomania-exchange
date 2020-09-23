@@ -45,7 +45,8 @@
                 <table id="stock_market_table" class="table table-hover small exchange-table stock-market">
                     <thead>
                         <tr>
-                            <th>{{ __('STOCK') }}</th>
+                            <th style="display:none">{{ __('STOCK') }}</th>
+                            <th>{{ __('ICON') }}</th>
                             <th style="padding-left: 50px !important;">{{ __('PRICE') }}</th>
                             <th>{{ __('CHANGE') }}</th>
                         </tr>
