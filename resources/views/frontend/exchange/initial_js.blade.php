@@ -63,7 +63,7 @@
                 selector: 'tr:not(.selected)'
             },
             responsive: true,
-            scrollY: 500,
+            scrollY: 1000,
             scrollCollapse: true,
             language: {search: "", searchPlaceholder: "{{ __('Search...') }}"},
             ajax: {

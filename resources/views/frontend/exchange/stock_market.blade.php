@@ -1,3 +1,15 @@
+<style>
+    ul.menubar {
+        overflow: auto;
+        white-space: nowrap;
+        height: 40px;
+    }
+
+    ul.menubar li {
+        display: inline-block;
+    }
+</style>
+
 <div class="col-md-3">
     <div class="market-pairs">
         <div class="input-group">
@@ -7,7 +19,7 @@
             <input type="text" id="myInput" class="form-control" placeholder="Search"
                 aria-describedby="inputGroup-sizing-sm">
         </div>
-        <ul class="nav nav-pills" role="tablist">
+        <ul class="nav nav-pills menubar" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" style="color: #0000EE"><i class="fa fa-star"></i></a>
             </li>
