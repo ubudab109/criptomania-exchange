@@ -1,16 +1,16 @@
 @extends('backend.layouts.main_layout')
+@section('title', $title)
 @section('content')
-<br>
-    <h5 class="page-header">{{ __('Open Orders') }}</h5>
-    <hr>
+    {!! $list['filters'] !!}
     <div class="card">
         <div class="card-body">
             <div class="">
+                <h3 class="page-header">{{ __('Open Orders') }}</h3>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="nav-tabs-custom">
                             <div class="tab-content">
-                                <table class="table datatable dt-responsive display nowrap dc-table" style="width:100% !important;" id="open-orders-trader">
+                                <table class="table datatable dt-responsive display nowrap dc-table" style="width:100% !important;">
                                     <thead>
                                     <tr>
                                         <th class="all">{{ __('Market') }}</th>
@@ -26,6 +26,34 @@
                                         @endif
                                     </tr>
                                     </thead>
+                                    <tbody>
+                                    @foreach($list['query'] as $order)
+                                        <tr id="order-{{ $order->id }}">
+                                            <td>{{ $order->stock_item_abbr }}/{{ $order->base_item_abbr }}</td>
+                                            <td>{{ exchange_type($order->exchange_type) }}</td>
+                                            <td>{{ category_type($order->category) }}</td>
+                                            <td>{{ $order->price }} <span class="strong">{{ $order->base_item_abbr }}</span></td>
+                                            <td>{{ $order->amount }} <span class="strong">{{ $order->stock_item_abbr }}</span></td>
+                                            <td>{{ bcmul($order->amount, $order->price) }} <span
+                                                        class="strong">{{ $order->base_item_abbr }}</span></td>
+                                            <td>
+                                                @if(!is_null($order->stop_limit))
+                                                    {{ $order->stop_limit }}
+                                                    <span class="strong">{{ $order->base_item_abbr }}</span>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
+                                            @if(has_permission('trader.orders.destroy'))
+                                                <td>
+                                                    <a href="{{ route('trader.orders.destroy', $order->id) }}"
+                                                       class="cancel-order">{{ __('Cancel') }}</a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -34,6 +62,7 @@
             </div>
         </div>
     </div>
+    {!! $list['pagination'] !!}
 @endsection
 
 @section('script')
@@ -43,52 +72,15 @@
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{asset('common/vendors/datatable_responsive/table-datatables-responsive.js')}}"></script>
     <script type="text/javascript">
+        //Init jquery Date Picker
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             orientation: 'bottom',
             todayHighlight: true,
         });
-
-        var table = $('#open-orders-trader').DataTable({
-
-          processing: true,
-
-          serverSide: true,
-
-          // bInfo: false,
-
-          language: {search: "", searchPlaceholder: "{{ __('Search...') }}"},
-          ajax: "{{ route('trader.orders.open-orders-json') }}",
-
-          order : [7, 'desc'],
-
-          columns: [
-              {data: 'coin-pair', name: 'coin-pair', className:'text-center'},
-              {data: 'exchange_type', name: 'exchange_type'},
-              {data: 'category', name: 'category'},
-              {data: 'price', name: 'price'},
-              {data: 'amount', name: 'amount'},
-              {data: 'total', name: 'total'},
-              {data: 'stop-limit', name: 'stop-limit'},
-              {data: 'created_at', name: 'created_at'},
-              {data: 'action', name: 'action', orderable: false, searchable: false},
-          ],
-      });
-
-    //   $('.filter-satuan').change(function () {
-    //      table.column( $(this).data('column'))
-    //      .search( $(this).val() )
-    //      .draw();
-    //  });
-
-    // $('.filter-coin-pair').change(function () {
-    //      table.column( $(this).data('column'))
-    //      .search( $(this).val() )
-    //      .draw();
-    //  });
-
         @if(has_permission('trader.orders.destroy'))
         $(document).on('click', '.cancel-order', function (event) {
             event.preventDefault();
@@ -97,7 +89,6 @@
             let url = $this.attr('href');
             let column = $this.closest('td');
             column.html('<span class="text-red">{{ __('Cancelling') }}</span>');
-
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -110,22 +101,18 @@
                     } else {
                         flashBox('success', message);
                     }
-
                 }
             });
         });
-
         let userId = '{{ auth()->id() }}';
         let channelPrefix = '{{ channel_prefix() }}';
         let stockPairId = null;
-        @foreach($list->unique('stock_pair_id') as $stockOrder)
+        @foreach($list['query']->unique('stock_pair_id') as $stockOrder)
         stockPairId = '{{ $stockOrder->stock_pair_id }}';
         Echo.private(channelPrefix + 'orders.' + stockPairId + '.' + userId).listen('Exchange.BroadcastPrivateCancelOrder', (data) => {
             $('.datatable').DataTable().row("#order-" + data.order_number).remove().draw();
         });
         @endforeach
-
         @endif
-
-</script>
+    </script>
 @endsection

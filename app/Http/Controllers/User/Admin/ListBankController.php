@@ -11,42 +11,46 @@ use App\Repositories\User\Trader\Interfaces\BankNameInterface;
 use App\Services\Core\DataListService;
 use App\Services\Core\FileUploadService;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-use Illuminate\Http\JsonResponse;
-use App\Models\Backend\ListBank;
 
 /*
     Developer   : Muhammad Rizky Firdaus
     Date        : 20-07-2020
     Description : Controller for trader bank account CRUD
-
 */
 
 class ListBankController extends Controller
 {
-	public $listBank;
+    public $listBank;
     public $bankName;
 
 
- 	public function __construct(ListBankInterface $listBank, BankNameInterface $bankName)
- 	{
- 		$this->listBank = $listBank;
+    public function __construct(ListBankInterface $listBank, BankNameInterface $bankName)
+    {
+        $this->listBank = $listBank;
         $this->bankName = $bankName;
 
- 	}   
+    }   
 
-    public function json()
-    {
-        
-       return $this->listBank->getAllListBank();
+    public function index(){
+
+        $searchFields = [
+            ['bank_name', __('Bank Name')],
+            ['account_number', __('Account Number')],
+        ];
+
+        $orderFields = [
+            ['bank_name', __('Bank Name')],
+            ['account_number', __('Account Number')],
+            ['list_bank.created_at', __('Created Date')],
+        ];
+
+        $query = $this->listBank->paginateWithFilters($searchFields, $orderFields);
+        $data['list'] = app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+        $data['title'] = __('List Bank');
+
+        return view('backend.listBank.index', $data);
 
     }
-
- 	public function index(){
-
-        return view('backend.listBank.index');
-
- 	}
 
     // this is to show trader
     public function traderBank()
@@ -70,7 +74,7 @@ class ListBankController extends Controller
 
         return view('backend.listBank.traderBankIndex', $data);
     }
- 	
+    
     public function create()
     {
         $data['title'] = __('Create New Bank Number');

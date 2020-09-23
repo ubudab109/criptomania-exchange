@@ -22,13 +22,25 @@ class UserRoleManagementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function json()
-    {
-      return $this->roleManagement->getAllRoles();
-    }
     public function index()
     {
-        return view('backend.userRoleManagements.index');
+        $searchFields = [
+            ['role_name', __('Role Name')],
+        ];
+        $orderFields = [
+            ['id', __('Serial')],
+            ['role_name', __('Role Name')],
+        ];
+
+        $query = $this->roleManagement->paginateWithFilters($searchFields, $orderFields);
+        $data['list'] = app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+        $data['title'] = __('Role Management');
+        $data['defaultRoles'] = config('commonconfig.fixed_roles');
+        if (!is_array($data['defaultRoles'])) {
+            $data['defaultRoles'] = [];
+        }
+
+        return view('backend.userRoleManagements.index', $data);
     }
 
     public function create()

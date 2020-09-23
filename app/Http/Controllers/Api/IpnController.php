@@ -42,6 +42,12 @@ class IpnController extends Controller
         }
     }
 
+    /*
+     * @var bitcoinIpn
+     * @desc This controller handles the bitcoin or any cryptocurrency PORT which use the bitcoin core
+     * @return returning info from txid and send to WalletService to update any transaction with txid
+    */
+
     public function bitcoinIpn(Request $request, $currency)
     {
         try {

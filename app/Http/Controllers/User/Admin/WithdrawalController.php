@@ -14,8 +14,6 @@ use App\Repositories\User\Interfaces\NotificationInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User\Wallet;
-use App\Models\Backend\StockItem;
-
 
 
 class WithdrawalController extends Controller
@@ -27,27 +25,22 @@ class WithdrawalController extends Controller
         $this->withdrawalRepository = $withdrawalRepository;
     }
 
-    public function withdrawalsBankTransferJson()
-    {
-      return app(ReportsService::class)->withdrawalsBankTransfer();
-    }
-
-    public function withdrawalCryptoCurrencyJson()
-    {
-      return $this->withdrawalRepository->withdrawalCryptoCurrency();
-    }
-
     public function index()
     {
-        // $transactionType = PAYMENT_REVIEWING;
-        // $data['list'] = app(ReportsService::class)->withdrawals(null, null, null);
-        // $data['title'] = __('Withdrawals for Reviewing');
-        $data['cryptoCurrency'] = StockItem::where('item_type',CURRENCY_CRYPTO)
-                                            ->select(['item'])->get();
-        $data['realCurrency'] = StockItem::where('item_type',CURRENCY_REAL)
-                                            ->select(['item'])->get();
+        $transactionType = PAYMENT_PENDING;
+        $data['list'] = app(ReportsService::class)->withdrawals(null, null, null, API_BITCOIN);
+        $data['title'] = __('Withdrawals for Reviewing');
 
-        return view('backend.review_withdrawals.withdrawal',$data);
+        return view('backend.review_withdrawals.withdrawal', $data);
+    }
+
+    public function indexCurrencyReal()
+    {
+        // $transactionType = PAYMENT_PENDING;
+        $data['currency'] = app(ReportsService::class)->withdrawalsRealCurrency(null, null, null, CURRENCY_REAL);
+        $data['titleOpen'] = __('Real Currency Withdrawals for Reviewing');
+
+        return view('backend.review_withdrawals.realCurrencyWithdrawal', $data);
     }
 
     public function show($id)
@@ -93,25 +86,21 @@ class WithdrawalController extends Controller
 
 
 
-    /*
-
-
+    /* 
         Doc Code : 1
         Developer : Daus
         Date : 23/07/2020
         Description : Method decline Bank dan approve Bank digunakan untuk menolak atau menerima request withdraw dari trader.
                       Fungsi ini hanya akan dijalankan dengan kondisi dimana payment_method dari withdraw adalah BANK_TRANSFER atau 4.
         NOTE : (JIKA TERJADI BUG SAAT WITHDRAW DENGAN TIPE TRANSAKSI SELAIN BANK TRANSFER. LIHAT KEMBALI FUNGSI INI!)
-
-
-
+        
     */
 
      public function declineBank(Request $request, $id)
     {
        $attributes = ['primary_balance' => DB::raw('primary_balance + ' . $request->amount)];
 
-        try {
+        try { 
             DB::beginTransaction();
 
             $withdrawalRepository = app(WithdrawalInterface::class);
@@ -125,7 +114,7 @@ class WithdrawalController extends Controller
                 throw new \Exception(__('No wallet is found.'));
             }
 
-
+       
 
             $date = now();
             // parameter untuk transaksi table
@@ -204,7 +193,7 @@ class WithdrawalController extends Controller
     }
 }
 
-/*
+/* 
     END Doc Code 1
-
+    
 */

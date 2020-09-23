@@ -19,6 +19,8 @@ class RpcSettingRepository extends BaseRepository implements RpcInterface
 {
     /**
      * @var Rpc Setting
+     * @desc Reposository for RPC Setting PORT
+     * @return returning eloquent query
      */
     protected $model;
 

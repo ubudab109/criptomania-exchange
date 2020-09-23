@@ -1,129 +1,79 @@
 @extends('backend.layouts.main_layout')
 @section('content')
-<!-- Crypto Currency Review -->
-    <h5 class="page-header">Crypto Coin Withdrawals for Reviewing</h5>
-    <div class="card">
-      <div class="card-body">
-        <div class="">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="box box-primary box-borderless">
-                <div class="box-body">
-                  <div class="cm-filter clearfix">
-                      <div class="cm-order-filter">
-                        <label for="filter-satuan"> Filter By Coin Name :</label>
-                         <select data-column="2" class="form-control crypto-coin-name" placeholder="Filter By Coin Name" style="width:30%;">
-                           <option value=""> All </option>
-                           @foreach($cryptoCurrency as $crypto)
-                           <option value="{{$crypto->item}}"> {{$crypto->item}} </option>
-                           @endforeach
-                         </select>
-                       </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+    {!! $list['filters'] !!}
 
     <div class="card">
-      <div class="card-body">
-        <div class="">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="nav-tabs-custom">
-                        <div class="tab-content">
-                            <table class="table datatable dt-responsive display nowrap dc-table" style="width:100% !important;" id="review-wd-cryptocurrency">
-                                <thead>
-                                <tr>
-                                    <th class="none">{{ __('Date') }}</th>
-                                    <th class="min-desktop">{{ __('Ref ID') }}</th>
-                                    <th class="all">{{ __('Stock Item Name') }}</th>
-                                    <th class="all">{{ __('Amount') }}</th>
-                                    <th class="none">{{ __('Address') }}</th>
-                                    <th class="all">{{ __('Status') }}</th>
-                                    <th class="none">{{ __('Withdrawn by') }}</th>
-                                    <th class="none">{{ __('Txn Id') }}</th>
-                                    <th class="text-center all no-sort">{{ __('Action') }}</th>
-                                </tr>
-                                </thead>
-                            </table>
+        <div class="card-body">
+            <div class="">
+                <h3 class="page-header">{{ $title }}</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="nav-tabs-custom">
+                                        <div class="tab-content">
+                                            <table class="table datatable dt-responsive display nowrap dc-table" style="width:100% !important;">
+                                                <thead>
+                                                <tr>
+                                                    <th class="none">{{ __('Status') }}</th>
+                                                    <th class="min-desktop">{{ __('Ref ID') }}</th>
+                                                    <th class="all">{{ __('Stock Item Name') }}</th>
+                                                    <th class="all">{{ __('Amount') }}</th>
+                                                    <th class="min-desktop">{{ __('Address') }}</th>
+                                                    <th class="none">{{ __('Withdrawn by') }}</th>
+                                                    <th class="none">{{ __('Txn Id') }}</th>
+                                                    <th class="min-desktop">{{ __('Date') }}</th>
+                                                    <th class="text-center all no-sort">{{ __('Action') }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($list['query'] as $reviewWithdrawal)
+                                                    <tr>
+                                                        <td>
+                                                            <span class="label label-{{ config('commonconfig.payment_status.' . $reviewWithdrawal->status . '.color_class') }}">{{ payment_status($reviewWithdrawal->status) }}
+                                                            </span>
+                                                        </td>
+                                                        <td>{{ $reviewWithdrawal->ref_id }}</td>
+                                                        <td>{{ $reviewWithdrawal->item_name }} ({{ $reviewWithdrawal->item }})</td>
+                                                        <td>{{ $reviewWithdrawal->amount }} {{ $reviewWithdrawal->item }}</td>
+                                                        <td>{{ $reviewWithdrawal->address }}</td>
+                                                        <td>
+                                                            @if(has_permission('users.show'))
+                                                                <a href="{{ route('users.show', $reviewWithdrawal->user_id) }}">{{ $reviewWithdrawal->email }}</a>
+                                                            @else
+                                                                {{ $reviewWithdrawal->email }}
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $reviewWithdrawal->txn_id }}</td>
+                                                        <td>{{ $reviewWithdrawal->created_at->toFormattedDateString() }}</td>
+                                                        <td class="cm-action">
+                                                            <div class="btn-group pull-right">
+                                                                <button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                                    <i class="fa fa-gear"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-stock-pair pull-right">
+                                                                    @if( has_permission('admin.review-withdrawals.show') )
+                                                                        <li><a href="{{ route('admin.review-withdrawals.show', $reviewWithdrawal->id)}}"><i class="fa fa-eye"></i> {{ __('Show') }}</a></li>
+                                                                    @endif
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-    <!-- Real Currency Review -->
-    <h5 class="page-header">Real Currency Withdrawals for Reviewing</h5>
-    <div class="card">
-      <div class="card-body">
-        <div class="">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="box box-primary box-borderless">
-                  <div class="box-body">
-                    <div class="cm-filter clearfix">
-                       <div class="cm-order-filter">
-                          <label for="filter-satuan"> Filter By Status :</label>
-                           <select data-column="5" class="form-control filter-payment" placeholder="Filter By Category" style="width:30%;">
-                             <option value=""> All </option>
-                             <option value="{{payment_status(PAYMENT_COMPLETED)}}"> Completed </option>
-                             <option value="{{payment_status(PAYMENT_PENDING)}}"> Pending </option>
-                             <option value="{{payment_status(PAYMENT_FAILED)}}"> Failed </option>
-                           </select>
-                         </div>
-                        <div class="cm-order-filter">
-                          <label for="filter-satuan"> Filter By Coin Name :</label>
-                           <select data-column="2" class="form-control real-coin-name" placeholder="Filter By Coin Name" style="width:30%;">
-                             <option value=""> All </option>
-                             @foreach($realCurrency as $real)
-                             <option value="{{$real->item}}"> {{$real->item}} </option>
-                             @endforeach
-                           </select>
-                         </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <div class="card">
-        <div class="card-body">
-          <div class="">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="nav-tabs-custom">
-                        <div class="tab-content">
-                            <table class="table datatable dt-responsive display nowrap dc-table" style="width:100% !important;" id="review-wd-realcurrency">
-                                <thead>
-                                <tr>
-                                    <th class="none">{{ __('Date') }}</th>
-                                    <th class="min-desktop">{{ __('Ref ID') }}</th>
-                                    <th class="all">{{ __('Stock Item Name') }}</th>
-                                    <th class="all">{{ __('Amount') }}</th>
-                                    <th class="none">{{ __('Address') }}</th>
-                                    <th class="all">{{ __('Status') }}</th>
-                                    <th class="none">{{ __('Withdrawn by') }}</th>
-                                    <th class="none">{{ __('Txn Id') }}</th>
-                                    <th class="text-center all no-sort">{{ __('Action') }}</th>
-                                </tr>
-                                </thead>
-                            </table>
-                          </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
 @endsection
 
 @section('script')
@@ -133,6 +83,7 @@
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('common/vendors/datatable_responsive/datatables/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{asset('common/vendors/datatable_responsive/table-datatables-responsive.js')}}"></script>
     <script type="text/javascript">
     //Init jquery Date Picker
         $('.datepicker').datepicker({
@@ -143,70 +94,5 @@
         });
     </script>
 
-    <!-- Crypto Currency Review -->
-    <script>
-    var tableCrypto = $('#review-wd-cryptocurrency').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        language: {search: "", searchPlaceholder: "{{ __('Search...') }}"},
-                        ajax: "{{ route('admin.review-withdrawals-cryptocurrency.json')}}",
-                        order : [0, 'desc'],
-                        columns: [
-                          {data:'created_at', name:'created_at'},
-                          {data:'ref_id', name:'ref_id'},
-                          {data:'stock-name', name:'stock-name'},
-                          {data:'amount', name:'amount'},
-                          {data:'address', name:'address'},
-                          {data:'status', name:'status'},
-                          {data:'email', name:'email'},
-                          {data:'txn_id', name:'txn_id'},
-                          {data: 'action', name: 'action', orderable: false, searchable: false, className:'cm-action'},
-
-                        ]
-                      });
-
-                      $('.crypto-coin-name').change(function () {
-                         tableCrypto.column( $(this).data('column'))
-                         .search( $(this).val() )
-                         .draw();
-                     });
-    </script>
-
-    <!-- Real Currency Review -->
-    <script>
-    var tableReal = $('#review-wd-realcurrency').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        language: {search: "", searchPlaceholder: "{{ __('Search...') }}"},
-                        ajax: "{{ route('admin.review-withdrawals-bank.json')}}",
-                        order : [0, 'desc'],
-                        columns: [
-                          {data:'created_at', name:'created_at'},
-                          {data:'ref_id', name:'ref_id'},
-                          {data:'stock-name', name:'stock-name'},
-                          {data:'amount', name:'amount'},
-                          {data:'address', name:'address'},
-                          {data:'status', name:'status'},
-                          {data:'email', name:'email'},
-                          {data:'txn_id', name:'txn_id'},
-                          {data: 'action', name: 'action', orderable: false, searchable: false, className:'cm-action'},
-
-                        ]
-                      });
-
-                     $('.filter-payment').change(function () {
-                       tableReal.column( $(this).data('column'))
-                       .search( $(this).val() )
-                       .draw();
-                   });
-
-                      $('.real-coin-name').change(function () {
-                         tableReal.column( $(this).data('column'))
-                         .search( $(this).val() )
-                         .draw();
-                     });
-
-
-    </script>
 @endsection
 

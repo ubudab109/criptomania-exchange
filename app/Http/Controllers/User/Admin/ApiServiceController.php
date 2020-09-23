@@ -12,26 +12,36 @@ use App\Http\Requests\User\Admin\ApiServiceRequest;
     Developer   : Muhammad Rizky Firdaus
     Date        : 26-08-2020
     Description : Controller for Api Service CRUD
-
 */
 class ApiServiceController extends Controller
 {
-	public $apiservice;
+    public $apiservice;
     
     public function __construct(ApiServiceInterface $apiservice)
     {
-    	$this->apiservice = $apiservice;
-    }
-
-    public function apiServiceJson()
-    {
-        return $this->apiservice->getAllApiService();
+        $this->apiservice = $apiservice;
     }
 
     public function index()
     {
+        $searchFields = [
+            ['api_name', __('Api Name')],
+            ['api_value', __('Api Core Name')],
+        ];
 
-        return view('backend.apiService.index');
+        $orderFields = [
+            ['api_name', __('Api Name')],
+            ['api_value', __('Api Core Name')],
+            ['api_stock_item.created_at', __('Created Date')],
+        ];
+
+
+        $query = $this->apiservice->paginateWithFilters($searchFields, $orderFields);
+
+        $data['list'] = app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+        $data['title'] = __('Api Service List');
+
+        return view('backend.apiService.index', $data);
     }
 
      public function create()

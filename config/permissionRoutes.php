@@ -168,6 +168,7 @@ return [
             'review_withdrawals' => [
                 ROUTE_GROUP_READER_ACCESS => [
                     'admin.review-withdrawals.index',
+                    'admin.review-withdrawals-real-currency.index',
                     'admin.review-withdrawals.show',
                     'admin.review-withdrawals-bank.json',
                     'admin.review-withdrawals-cryptocurrency.json',

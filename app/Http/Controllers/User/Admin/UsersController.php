@@ -23,22 +23,41 @@ use App\Models\User\DepositBankTransfer;
 class UsersController extends Controller
 {
     protected $user;
-    protected $walletRepository;
 
-    public function __construct(UserInterface $user, WalletInterface $walletRepository)
+    public function __construct(UserInterface $user)
     {
         $this->user = $user;
-        $this->walletRepository = $walletRepository;
-    }
-
-    public function json()
-    {
-      return $this->user->getUserInfo();
     }
 
     public function index()
     {
-        return view('backend.users.index');
+        $searchFields = [
+            ['username', __('Username')],
+            ['email', __('Email')],
+            ['first_name', __('First Name')],
+            ['last_name', __('Last Name')],
+        ];
+        $orderFields = [
+            ['first_name', __('First Name')],
+            ['users.id', __('Serial')],
+            ['last_name', __('Last Name')],
+            ['email', __('Email')],
+            ['username', __('Username')],
+            ['users.created_at', __('Registered Date')],
+        ];
+        $joinArray = [
+            ['user_role_managements', 'user_role_managements.id', '=', 'users.user_role_management_id'],
+            ['user_infos', 'user_infos.user_id', '=', 'users.id'],
+        ];
+        $select = [
+            'users.*', 'role_name', 'first_name', 'last_name'
+        ];
+
+        $query = $this->user->paginateWithFilters($searchFields, $orderFields, null, $select, $joinArray);
+        $data['list'] = app(DataListService::class)->dataList($query, $searchFields, $orderFields);
+        $data['title'] = __('Users');
+
+        return view('backend.users.index', $data);
     }
 
     public function show($id)
@@ -145,20 +164,10 @@ class UsersController extends Controller
         return redirect()->route('users.edit.status', $id)->with(SERVICE_RESPONSE_SUCCESS, __('User status has been updated successfully.'));
     }
 
-    public function walletsJson($id)
-    {
-        // $data['list'] = app(WalletService::class)->getWallets($id);
-        // $data['title'] = __('Wallets');
-
-        $data = $this->walletRepository->getWalletJson($id);
-
-        return $data;
-    }
-
     public function wallets($id)
     {
-        // $data['list'] = app(WalletService::class)->getWallets($id);
-        $data['id'] = $id;
+        $data['list'] = app(WalletService::class)->getWallets($id);
+        $data['title'] = __('Wallets');
 
         return view('backend.users.wallets.index', $data);
     }
@@ -171,15 +180,11 @@ class UsersController extends Controller
         return view('backend.users.wallets.edit', $data);
     }
 
-     public function editWalletBalanceBank($id, $walletId, $depoId = null)
+     public function editWalletBalanceBank($id, $walletId, $depoId)
     {
         // $data['depoId'] = DepositBankTransfer::find($depoId);
         $data['wallet'] = app(WalletInterface::class)->getFirstByConditions(['id' => $walletId, 'user_id' => $id]);
-       
-        if(!is_null($depoId))
-        {
-             $data['depositBank'] = app(DepositBankInterface::class)->getFirstByConditions(['id' => $depoId]);
-        }
+        $data['depositBank'] = app(DepositBankInterface::class)->getFirstByConditions(['id' => $depoId]);
         $data['title'] = __('Modify Wallet Balance');
 
         return view('backend.users.wallets.editBankWallet', $data);
@@ -213,7 +218,7 @@ class UsersController extends Controller
                     'stock_item_id' => $wallet->stock_item_id,
                     'model_name' => null,
                     'model_id' => null,
-                    'transaction_type' =>  $wallet->stockItem->api_service == BANK_TRANSFER ? TRANSACTION_TYPE_TRANSFER : TRANSACTION_TYPE_DEBIT,
+                    'transaction_type' => TRANSACTION_TYPE_DEBIT,
                     'amount' => bcmul($request->amount, '-1'),
                     'journal' => DECREASED_FROM_SYSTEM_ON_TRANSFER_BY_ADMIN,
                     'updated_at' => $date,
@@ -224,7 +229,7 @@ class UsersController extends Controller
                     'stock_item_id' => $wallet->stock_item_id,
                     'model_name' => get_class($wallet),
                     'model_id' => $wallet->id,
-                    'transaction_type' => $wallet->stockItem->api_service == BANK_TRANSFER ? TRANSACTION_TYPE_TRANSFER : TRANSACTION_TYPE_CREDIT,
+                    'transaction_type' => TRANSACTION_TYPE_CREDIT,
                     'amount' => bcmul($request->amount, '1'),
                     'journal' => INCREASED_TO_USER_WALLET_ON_TRANSFER_BY_ADMIN,
                     'updated_at' => $date,
@@ -253,21 +258,18 @@ class UsersController extends Controller
         }
     }
 
-    /*
-
+    /* 
     Developer : Muhammad Rizky Firdaus
     Date : 20 July 2020
     Description : This method used for updating or decline the wallet balance user which deposit with bank transfer especially for Indonesian Rupiah or anything else
     Method   : updateWalletBalanceBank() and declineDepositBank()
-
-
     */
 
     public function updateWalletBalanceBank(UpdateWalletBalanceRequest $request, $userId, $walletId, $depoId)
     {
         $attributes = ['primary_balance' => DB::raw('primary_balance + ' . $request->amount)];
 
-        try {
+        try { 
             DB::beginTransaction();
 
 
@@ -303,8 +305,8 @@ class UsersController extends Controller
             ];
 
             $depositBankParameter = [
-
-                    'status' => PAYMENT_COMPLETED,
+            
+                    'status' => PAYMENT_COMPLETED, 
             ];
 
 
@@ -344,8 +346,8 @@ class UsersController extends Controller
             $date = now();
 
              $depositBankParameter = [
-
-                    'status' => PAYMENT_FAILED,
+            
+                    'status' => PAYMENT_FAILED, 
             ];
 
 
@@ -365,7 +367,7 @@ class UsersController extends Controller
         } catch (Exception $exception){
             DB::rollBack();
 
-            return redirect()->back()->with(SERVICE_RESPONSE_ERROR, __('Failed to update status.'));
+            return redirect()->back()->with(SERVICE_RESPONSE_ERROR, __('Failed to update status.'));     
         }
     }
 }
