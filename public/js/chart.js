@@ -11,13 +11,13 @@ const chartProperties = {
 const domElement = document.getElementById('echart');
 const chart = LightweightCharts.createChart(domElement, chartProperties);
 if (screen.width > 1366) {
-    console.log('desktop lebar')
+
     chart.resize(750, 550);
 } else if (screen.width <= 700) {
-    console.log('desktop hp')
+
     chart.resize(500, 550);
 } else {
-    console.log('desktop saya')
+
 }
 const candleSeries = chart.addCandlestickSeries();
 
@@ -144,7 +144,6 @@ function makeChart(element, data) {
             }
         }
     });
-    console.log(cdata)
     candleSeries.setData(cdata);
 }
 

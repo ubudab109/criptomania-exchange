@@ -599,7 +599,7 @@
             destroy: true,
             paging: false,
             searching: false,
-            scrollY: 300,
+            scrollY: 350,
             scrollCollapse: true,
             order: [[4, 'desc']],
             info: false,
@@ -670,7 +670,7 @@
     function initMyTradeHistoryTable() {
         myTradeHistoryTable = $('#my_trade_table').DataTable({
             destroy: true,
-            paging: true,
+            paging: false,
             searching: false,
             lengthChange: false,
             order: [[0, 'desc']],
@@ -678,7 +678,7 @@
             // fixedColumn: true,
             responsive: true,
             info: false,
-            scrollY: 400,
+            scrollY: 350,
             scrollCollapse: true,
             ajax: {
                 url: '{{ route('exchange.get-my-trade') }}',

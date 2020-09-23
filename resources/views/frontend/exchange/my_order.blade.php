@@ -1,3 +1,8 @@
+<style>
+    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+        overflow-y: scroll !important;
+    }
+</style>
 <div class="col-md-12">
     <div class="market-order active-order-list">
         <ul class="nav nav-pills" role="tablist">
@@ -34,7 +39,7 @@
                     <thead>
                         <tr>
                             <th class="all" style="width:100px;">{{ __('PRICE') }}</th>
-                            <th class="text-center">{{ __('AMOUNT') }}</th>
+                            <th class="all">{{ __('AMOUNT') }}</th>
                             <th class="min-desktop">{{ __('DATE') }}</th>
                         </tr>
                     </thead>
