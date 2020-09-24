@@ -2,6 +2,18 @@
     td.green {
         color: green;
     }
+
+    #buy_order_table thead { 
+        opacity: 0; 
+        border: 0 none; 
+        height: 0; 
+    }
+#buy_order_table thead * { 
+    margin: 0; 
+    padding: 0; 
+    border: 0 none; 
+    height: 0px; 
+}
 </style>
 <div class="col-md-3">
     <div class="order-book">
@@ -35,11 +47,11 @@
             </tbody>
         </table>
         <table id="buy_order_table" class="table datatable dt-responsive display nowrap dc-table">
-            <thead>
+            <thead style=" visibility:hidden">
                 <tr>
-                    <th class="all" style="color: #758696">{{ __('PRICE') }}</th>
-                    <th class="all"><span class="stock_item"></span></th>
-                    <th class="all">{{ __('SUM') }}(<span class="base_item"></span>)</th>
+                    <th class="all" style="color: #758696; visibility: hidden">{{ __('PRICE') }}</th>
+                    <th class="all" style=" visibility:hidden"><span class="stock_item"></span></th>
+                    <th class="all" style=" visibility:hidden">{{ __('SUM') }}(<span class="base_item"></span>)</th>
                 </tr>
             </thead>
         </table>

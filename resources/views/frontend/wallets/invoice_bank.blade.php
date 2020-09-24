@@ -92,23 +92,20 @@
 <div class="modal fade" id="modal-insert">
     <div class="modal-dialog" role="document">
         <div class="form-group">
-            <img src="{{ get_struck($depoBank->payment_prove) }}" id="struck" class="img-responsive cm-center">
+            <img src="{{ get_struck($depoBank->payment_prove) }}" id="struck" class="img-responsive cm-center" style="width:100%; height: 100%;">
 
         </div>
 
 
 
-        <script>
-            $(document).ready(function(){
-     // Upload
-     $(document).on('click', '.show-struck', function() {
-     // this part
-     $('#struck').attr('src',$(this).data('struck'));
-   });
+<script>
+    $(document).ready(function(){
+         // Upload
+         $(document).on('click', '.show-struck', function() {
+         // this part
+         $('#struck').attr('src',$(this).data('struck'));
+       });
 
-});
-        </script>
-
-
-
-        @endsection
+    });
+</script>
+@endsection
