@@ -18,7 +18,7 @@
 <div class="col-md-3">
     <div class="order-book">
         <h2 class="heading">Order Book</h2>
-        <table id="sell_order_table" class="table datatable dt-responsive display nowrap dc-table">
+        <table id="sell_order_table" class="table datatable nowrap dc-table">
             <thead>
                 <tr>
                     <th style="color: #758696">{{ __('PRICE') }}</th>
