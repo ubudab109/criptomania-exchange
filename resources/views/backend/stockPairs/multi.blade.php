@@ -14,6 +14,7 @@
                 </div>
                 <div class="box-body">
                     <button class="btn btn-primary add-btn">Add More Form</button>
+                    <hr>
 
                     <div class="row">
                         <div class="col-sm-8">

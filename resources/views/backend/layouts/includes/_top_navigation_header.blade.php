@@ -71,7 +71,7 @@
                         </div>
                         <div class="dropdown-body">
                             @foreach($userNotifications['list'] as $notification)
-                            <a href="#!" class="dropdown-item">
+                            <a href="{{ route('notices.index') }}" class="dropdown-item">
                                 <div class="icon">
                                     <i class="icon ion-md-mail-unread"></i>
                                 </div>

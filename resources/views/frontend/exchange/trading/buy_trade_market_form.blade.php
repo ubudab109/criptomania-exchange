@@ -34,7 +34,7 @@
             @auth
             <div class="row">
                 <div class="col-12 box-tools text-center" style="margin-top: -10px">
-                    <a class="btn btn-box-tool" href="depositPageLink">{{ __('Deposit') }}
+                    <a class="btn btn-box-tool" href="{{route('trader.wallets.index')}}">{{ __('Deposit') }}
                         <span class="base_item"></span>
                     </a>
                 </div>

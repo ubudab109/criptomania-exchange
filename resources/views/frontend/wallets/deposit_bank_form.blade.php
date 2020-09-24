@@ -34,7 +34,7 @@ $bankName = \App\Models\Backend\ListBank::all();
                                 <label for="{{ fake_field('amount') }}"
                                     class="col-md-2 control-label required">{{ __('Amount') }}</label>
                                 <div class="col-md-10">
-                                    {{ Form::text(fake_field('amount'),  old('amount', null), ['class'=>'form-control', 'id' => fake_field('amount'),'data-cval-name' => 'The amount field','data-cval-rules' => 'required|numeric|escapeInput|between:100000, 100000000', 'placeholder' => __('ex: 100000')]) }}
+                                    {{ Form::text(fake_field('amount'),  old('amount', null), ['class'=>'form-control', 'id' => fake_field('amount'),'data-cval-name' => 'The amount field','data-cval-rules' => 'required|numeric|escapeInput|between:10000, 100000000', 'placeholder' => __('ex: 100000')]) }}
 
 
                                     <span class="validation-message cval-error"

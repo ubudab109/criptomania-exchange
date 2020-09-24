@@ -26,7 +26,7 @@ class DepositBankRequest extends Request
     public function rules()
     {
         return [
-            'amount' => 'required|numeric|between:100000, 100000000',
+            'amount' => 'required|numeric|between:10000, 100000000',
             'accept_policy' => 'required|in:1',
             'admin_bank_id' => 'required',
             // 'status' => 'required|in:2,3',
