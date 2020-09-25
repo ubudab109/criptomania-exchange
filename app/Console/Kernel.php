@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-           \App\Console\Commands\Core\IpnApi::class
+           \App\Console\Commands\Core\IpnApi::class,
+           \App\Console\Commands\Core\LogDelete::class
     ];
 
     /**
@@ -28,6 +29,8 @@ class Kernel extends ConsoleKernel
         $filepath = storage_path('logs/ipn.log');
         $schedule->command('ipn:call')
                  ->everyMinute()->sendOutputTo($filepath);
+
+        $schedule->command('log:delete')->daily();
     }
 
     /**

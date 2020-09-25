@@ -16,3 +16,13 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+
+// Artisan::command('logs:clear', function(){
+	
+// 	exec('rm ' . storage_path('logs/*.log'));
+
+// 	$this->comment('Logs has been cleared');
+
+// })->describe('Clear Log Files');
+
