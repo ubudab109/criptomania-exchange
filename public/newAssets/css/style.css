@@ -2109,8 +2109,7 @@ tbody.ob-heading {
   border: 1px solid #007bff;
 }
 
-@media only screen and (min-width: 1534px)
-{
+@media only screen and (min-width: 1534px) {
   .market-pairs tbody {
     height: 929px;
   }

@@ -1,8 +1,51 @@
 @extends('backend.layouts.top_navigation_layout')
 @section('title', $title)
 @section('after-style')
-<!-- {{-- <link rel="stylesheet" href="{{ asset('common/vendors/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}"> --}} -->
 <style>
+    /* css loading */
+    .loading {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(75deg);
+        width: 15px;
+        height: 15px;
+        z-index: 9999;
+    }
+
+    .exhcange-interface {
+        display: none;
+    }
+
+    .loading::before,
+    .loading::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        animation: loading 1.5s infinite linear;
+    }
+
+    .loading::before {
+        box-shadow: 15px 15px #e77f67, -15px -15px #778beb;
+    }
+
+    .loading::after {
+        box-shadow: 15px 15px #f8a5c2, -15px -15px #f5cd79;
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    @keyframes loading {
+        50% {
+            height: 45px;
+        }
+    }
+
+    /* css original */
     body {
         overflow-X: hidden;
     }
@@ -430,10 +473,11 @@
         }
     }
 </style>
-
 @endsection
 @section('content')
-<div class="container-fluid p-0">
+<div class="loading"></div>
+
+<div class="container-fluid p-0 exhcange-interface">
     <div class="row no-gutters">
         @include('frontend.exchange.stock_market')
         <div class="col-md-6">
@@ -475,6 +519,35 @@
 @endsection
 
 @section('script')
+<script>
+    // $(window).on('load', function() {
+    //     $(document).ajaxStart(function(){
+    //     // Show image container
+    //         $(".loading").show();
+    //     });
+    //     // Animate loader off screen
+    //     $(document).ajaxComplete(function(){
+    //     // Hide image container
+    //         // $(".loading").hide();
+    //         $(".loading").fadeOut("slow");
+    //         $('.exhcange-interface').css({
+    //             'display': 'block',
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function(){
+        $(this).ajaxStart(function() {
+            // alert('ajax start');
+        }).ajaxStop(function() {
+            $(".loading").fadeOut("slow");
+            // $(".loading").hide();
+            $('.exhcange-interface').css({
+                'display': 'block',
+            });
+        });
+    });
+</script>
 <script src="{{asset('newAssets/js/bootstrap.min.js')}}"></script>
 
 <script src="{{asset('common/vendors/bcmath/libbcmath-min.js')}}"></script>
@@ -496,5 +569,4 @@
 @include('frontend.exchange.broadcast_js')
 
 @include('frontend.exchange.custom_function_js')
-
 @endsection
