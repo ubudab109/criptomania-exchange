@@ -6,7 +6,8 @@
         <div class="">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ __('Edit Stock Item') }}</h3>
+                    <h3 class="box-title text-center">{{ __('Edit Stock Item') }}</h3>
+                    <hr>
                     <div class="box-tools pull-right">
                         <a href="{{ route('admin.stock-items.index') }}"
                             class="btn btn-primary back-button">{{ __('Back to list') }}</a>

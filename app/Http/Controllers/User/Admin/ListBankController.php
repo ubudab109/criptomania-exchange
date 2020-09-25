@@ -112,7 +112,7 @@ class ListBankController extends Controller
         return view('backend.listBank.edit', $data);
     }
 
-     public function update(ListBankRequest $request, $id)
+    public function update(ListBankRequest $request, $id)
     {
         $attributes = $request->only('bank_name', 'account_number');
 
@@ -124,7 +124,7 @@ class ListBankController extends Controller
     }
 
 
-     public function destroy($id)
+    public function destroy($id)
     {
         try {
             if ($this->listBank->deleteById($id)) {
@@ -137,7 +137,7 @@ class ListBankController extends Controller
         }
     }
 
-      public function show($id)
+    public function show($id)
     {
         $data['title'] = __('Bank Name');
         $data['listBank'] = $this->listBank->findOrFailById($id);

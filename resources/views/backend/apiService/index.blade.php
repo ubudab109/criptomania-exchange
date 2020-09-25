@@ -15,7 +15,7 @@
                                         <th class="all text-center">{{ __('Api Core') }}</th>
                                         <th class="text-center">{{ __('Api Name') }}</th>
                                         <th class="text-center">{{ __('Created At') }}</th>
-                                        <!-- <th class="text-center all no-sort">{{ __('Action') }}</th> -->
+                                        <th class="text-center all no-sort">{{ __('Action') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -24,6 +24,24 @@
                                             <td class="text-center">{{ array_key_exists($apiservices->api_value, api_services()) ? api_services($apiservices->api_value) : '' }}</td>
                                             <td class="text-center">{{ $apiservices->api_name }}</td>
                                             <td class="text-center">{{ $apiservices->created_at->toFormattedDateString() }}</td>
+                                            <td class="cm-action">
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn green btn-xs btn-outline dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                        <i class="fa fa-gear"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-stock-pair pull-right">
+                                                        @if(has_permission('admin.api-service-name.destroy'))
+                                                            <li>
+                                                                <a data-form-id="delete-{{ $apiservices->id }}" data-form-method="DELETE"
+                                                                   href="{{ route('admin.api-service-name.destroy', $apiservices->id) }}" class="confirmation"
+                                                                   data-alert="{{__('Do you want to delete this Api Services?')}}"><i
+                                                                            class="fa fa-trash-o"></i> {{ __('Delete') }}</a>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </td>
 
                                          </tr>
                                     @endforeach
