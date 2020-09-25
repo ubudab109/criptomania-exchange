@@ -8,7 +8,7 @@ $bankName = \App\Models\Backend\ListBank::all();
     <div class="card-body">
         <div class="">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 col-md-offset-2">
                     <div class="box box-primary box-borderless">
                         @if($wallet->stockItem->deposit_status == ACTIVE_STATUS_ACTIVE)
                         <div class="box-header text-center with-border">
@@ -16,6 +16,7 @@ $bankName = \App\Models\Backend\ListBank::all();
                                 {{ __('Deposit :stockItem', ['stockItem' => $wallet->stockItem->item]) }}
 
                             </h3>
+                            <hr>
                         </div>
                         <div class="box-body">
                             {!! Form::open(['route'=>['trader.wallets.deposit.storeBank', $wallet->id], 'method' =>

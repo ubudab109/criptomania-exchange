@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 col-md-offset-2">
                     <div class="box box-primary box-borderless">
                         @if($wallet->stockItem->deposit_status == ACTIVE_STATUS_ACTIVE)
                         <div class="box-header text-center with-border">

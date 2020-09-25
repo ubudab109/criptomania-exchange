@@ -13,7 +13,7 @@
 <div class="form-group {{ $errors->has('account_number') ? 'has-error' : '' }}">
     <label for="{{ fake_field('account_number') }}" class="col-md-4 control-label required">{{ __('Account Number') }}</label>
     <div class="col-md-8">
-        {{ Form::text(fake_field('account_number'),  old('account_number', $listBank->account_number), ['class'=>'form-control', 'id' => fake_field('account_number'),'data-cval-name' => 'The Account Number field','data-cval-rules' => 'required|numeric|escapeInput|between:0.00000001, 99999999999.99999999', 'placeholder' => __('ex: Your Account Number')]) }}
+        {{ Form::text(fake_field('account_number'),  old('account_number', $listBank->account_number), ['class'=>'form-control', 'id' => fake_field('account_number'),'data-cval-name' => 'The Account Number field','data-cval-rules' => 'required|escapeInput|max:255', 'placeholder' => __('ex: Your Account Number')]) }}
         <span class="validation-message cval-error" data-cval-error="{{ fake_field('account_number') }}">{{ $errors->first('account_number') }}</span>
     </div>
 </div>

@@ -10,20 +10,23 @@ App\Models\User\BankName::select('account_number','bank_name')->where('users_id'
     <div class="card-body">
         <div class="">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 col-md-offset-2">
                     <div class="box box-primary box-borderless">
                         @if($wallet->stockItem->withdrawal_status == ACTIVE_STATUS_ACTIVE)
+
                         <div class="box-header text-center with-border">
                             <h3 class="box-title font-weight-bold">
                                 {{ __('Withdraw :stockItem', ['stockItem' => $wallet->stockItem->item]) }}
                             </h3>
-                        </div>
-                        <div class="box-body">
-                            <h5 class="text-center">{!! __('You have :balance :stockItem available for withdrawal.
+                            <h5 class="text-center">{!! __('You have :balance :stockItem available for withdrawal.<br>
                                 :onOrder :stockItem is held on orders.', ['balance' => '<span class="strong">' .
                                     $wallet->primary_balance . '</span>', 'onOrder' => '<span class="strong">' .
                                     $wallet->on_order_balance . '</span>', 'stockItem' => '<span class="strong">'
                                     .$wallet->stockItem->item . '</span>' ]) !!}</h5>
+                        </div>
+                        <hr>
+                        <div class="box-body">
+
 
                             {!! Form::open(['route'=>['trader.wallets.withdrawal.store', $wallet->id], 'method' =>
                             'post', 'class'=>'form-horizontal validator']) !!}

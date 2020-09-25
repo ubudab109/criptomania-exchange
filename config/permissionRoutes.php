@@ -332,7 +332,7 @@ return [
                 ROUTE_GROUP_READER_ACCESS => [
                     'trader.wallets.index',
                     'trader.wallets.json',
-
+                    'profile.create.bank',
                 ],
                 'deposit_access' => [
                     'trader.wallets.deposit',
@@ -425,7 +425,6 @@ return [
         'profile.google-2fa.store',
         'profile.google-2fa.verify',
         'profile.google-2fa.destroy',
-        'profile.create.bank',
         'profile.store.bank',
         'account.index',
         'account.update',

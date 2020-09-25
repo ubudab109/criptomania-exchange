@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('ipn:call')
                  ->everyMinute()->sendOutputTo($filepath);
 
-        $schedule->command('log:delete')->daily();
+        // $schedule->command('log:delete')->daily();
     }
 
     /**
