@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Console\Commands\Core;
-
+namespace App\Console\Commands\core;
 
 use Illuminate\Console\Command;
+use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Route;
-use App\Models\Backend\StockItem;
+use Illuminate\Support\Facades\Crypt;
 
-
-
-class IpnApi extends Command
+class LogDelete extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'ipn:call';
+    protected $signature = 'log:delete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Call IPN Api';
+    protected $description = 'Delete Log File';
 
     /**
      * Create a new command instance.
@@ -43,14 +41,10 @@ class IpnApi extends Command
      */
     public function handle()
     {
-        // \Log::info("Cron is working fine!");
+        exec('rm ' . storage_path('logs/*.log'));
 
-        $stock = StockItem::all()->pluck('item');
-        foreach ($stock as $stockItem) {
-            $request = Request::create('api/bitcoin/ipn/'.$stockItem, 'GET');
-            $response = Route::dispatch($request);
-        }
+        $this->comment('Logs has been cleared');
 
-        $this->info('ipn:call Cummand Run successfully!');
+
     }
 }

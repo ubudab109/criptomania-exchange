@@ -4,16 +4,17 @@
     }
 
     #buy_order_table thead { 
-        opacity: 0; 
+        margin: 0; 
+        padding: 0; 
         border: 0 none; 
-        height: 0; 
+        height: 0px; 
     }
-#buy_order_table thead * { 
-    margin: 0; 
-    padding: 0; 
-    border: 0 none; 
-    height: 0px; 
-}
+  /*  #buy_order_table thead * { 
+        margin: 0; 
+        padding: 0; 
+        border: 0 none; 
+        height: 0px; 
+    }*/
 </style>
 <div class="col-md-3">
     <div class="order-book">
@@ -22,7 +23,7 @@
             <thead>
                 <tr>
                     <th style="color: #758696">{{ __('PRICE') }}</th>
-                    <th><span class="stock_item"></span></th>
+                    <th style="color: #758696"><span class="stock_item"></span></th>
                     <th class="hide_in_mobile_small">{{ __('SUM') }}(<span class="base_item"></span>)</th>
                 </tr>
             </thead>

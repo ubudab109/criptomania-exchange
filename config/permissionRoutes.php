@@ -150,12 +150,14 @@ return [
             'api_service_name' => [
                 ROUTE_GROUP_READER_ACCESS => [
 
-                    'admin.api-service-name',
-                    'admin.api-service-name-json',
+                    'admin.api-service-name.index',
                 ],
                 ROUTE_GROUP_CREATION_ACCESS => [
-                    'admin.api-service-name-create',
-                    'admin.api-service-name-store',
+                    'admin.api-service-name.create',
+                    'admin.api-service-name.store',
+                ],
+                ROUTE_GROUP_DELETION_ACCESS => [
+                    'admin.api-service-name.destroy',
                 ],
 
             ],
@@ -332,7 +334,7 @@ return [
                 ROUTE_GROUP_READER_ACCESS => [
                     'trader.wallets.index',
                     'trader.wallets.json',
-
+                    'profile.create.bank',
                 ],
                 'deposit_access' => [
                     'trader.wallets.deposit',
@@ -425,7 +427,6 @@ return [
         'profile.google-2fa.store',
         'profile.google-2fa.verify',
         'profile.google-2fa.destroy',
-        'profile.create.bank',
         'profile.store.bank',
         'account.index',
         'account.update',

@@ -7,25 +7,26 @@
 <div class="card">
     <div class="card-body">
         <div class="">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ __('Create Stock Item') }}</h3>
-                    <div class="box-tools pull-right">
-                        <a href="{{ route('admin.stock-items.index') }}"
-                            class="btn btn-primary back-button">{{ __('Back to list') }}</a>
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title text-center">{{ __('Create Stock Item') }}</h3>
+                        <hr>
+                        <div class="box-tools pull-right">
+                            <a href="{{ route('admin.stock-items.index') }}"
+                                class="btn btn-primary back-button">{{ __('Back to list') }}</a>
+                        </div>
                     </div>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            {!! Form::open(['route'=>'admin.stock-items.store', 'method' => 'post',
-                            'class'=>'form-horizontal validator', 'enctype'=>'multipart/form-data']) !!}
-                            @include('backend.stockItems._create_form')
-                            {!! Form::close() !!}
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                {!! Form::open(['route'=>'admin.stock-items.store', 'method' => 'post',
+                                'class'=>'form-horizontal validator', 'enctype'=>'multipart/form-data']) !!}
+                                @include('backend.stockItems._create_form')
+                                {!! Form::close() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<!-- @extends('backend.layouts.main_layout')
+@extends('backend.layouts.main_layout')
 @section('title', $title)
 @section('content')
     <div class="box box-success">
@@ -44,4 +44,4 @@
             $('.validator').cValidate({});
         });
 </script>
-@endsection -->
+@endsection

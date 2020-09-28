@@ -1,4 +1,4 @@
-<!-- <input type="hidden" name="base_key" value="{{ base_key() }}">
+<input type="hidden" name="base_key" value="{{ base_key() }}">
 
 {{--Bank Name--}}
 <div class="form-group {{ $errors->has('bank_name') ? 'has-error' : '' }}">
@@ -24,4 +24,4 @@
         {{ Form::submit(__('Create'),['class'=>'btn btn-success form-submission-button']) }}
         {{ Form::reset(__('Reset'),['class'=>'btn btn-danger']) }}
     </div>
-</div> -->
+</div>

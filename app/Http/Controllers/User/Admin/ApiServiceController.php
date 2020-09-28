@@ -44,14 +44,14 @@ class ApiServiceController extends Controller
         return view('backend.apiService.index', $data);
     }
 
-     public function create()
+    public function create()
     {
         $data['title'] = __('Create New Api Service');
 
         return view('backend.apiService.create', $data);
     }
 
-       public function store(ApiServiceRequest $request)
+    public function store(ApiServiceRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -61,7 +61,7 @@ class ApiServiceController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.api-service-name')->with(SERVICE_RESPONSE_SUCCESS, __('The Api Service has been created successfully.'));
+            return redirect()->route('admin.api-service-name.index')->with(SERVICE_RESPONSE_SUCCESS, __('The Api Service has been created successfully.'));
         }
         catch (\Exception $exception) {
             DB::rollBack();
@@ -70,6 +70,18 @@ class ApiServiceController extends Controller
             }
 
             return redirect()->back()->withInput()->with(SERVICE_RESPONSE_ERROR, __('Failed to create Api Service.'));
+        }
+    }
+
+    public function destroy($id){
+         try {
+            if ($this->apiservice->deleteById($id)) {
+                return redirect()->back()->with(SERVICE_RESPONSE_SUCCESS, __('The Api Service has been deleted successfully.'));
+            }
+
+            return redirect()->back()->withInput()->with(SERVICE_RESPONSE_ERROR, __('Failed to delete.'));
+        } catch (\Exception $exception) {
+            return redirect()->back()->with(SERVICE_RESPONSE_ERROR, __('Failed to delete as the Api Service is being used.'));
         }
     }
 
