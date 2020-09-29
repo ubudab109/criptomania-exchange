@@ -21,21 +21,21 @@
                                 <div class="col-md-6">
                                     <div class="form-horizontal show-form-data">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Stock Item') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Stock Item') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ $stockItem->item }}</p>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Stock Item Name') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Stock Item Name') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ $stockItem->item_name }}</p>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Stock Item Emoji') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Stock Item Emoji') }}:</label>
                                             <div class="col-sm-8">
                                                 @if(get_item_emoji($stockItem->item_emoji))
                                                 <img src="{{ get_item_emoji($stockItem->item_emoji) }}"
@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Stock Item Type') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Stock Item Type') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ stock_item_types($stockItem->item_type) }}</p>
@@ -55,7 +55,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Active Status') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Active Status') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ active_status($stockItem->is_active) }}</p>
@@ -63,7 +63,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Is ICO') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Is ICO') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ active_status($stockItem->is_ico) }}
                                                 </p>
@@ -71,7 +71,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Exchange Status') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Exchange Status') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ active_status($stockItem->exchange_status) }}</p>
@@ -80,7 +80,7 @@
 
                                         <div class="form-group">
                                             <label
-                                                class="col-sm-4 control-label">{{ __('Daily Withdrawal Limit') }}</label>
+                                                class="col-sm-4 control-label">{{ __('Daily Withdrawal Limit') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ $stockItem->daily_withdrawal_limit }}
                                                     {{ $stockItem->item }}</p>
@@ -89,7 +89,7 @@
 
                                         <div class="form-group">
                                             <label
-                                                class="col-sm-4 control-label">{{ __('Minimum Withdrawal Amount') }}</label>
+                                                class="col-sm-4 control-label">{{ __('Minimum Withdrawal Amount') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ $stockItem->minimum_withdrawal_amount }} {{ $stockItem->item }}
@@ -98,7 +98,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Created At') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Created At') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ $stockItem->created_at->toFormattedDateString() }}</p>
@@ -110,7 +110,7 @@
                                 <div class="col-md-6">
                                     <div class="form-horizontal show-form-data">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Deposit Status') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Deposit Status') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ active_status($stockItem->deposit_status) }}</p>
@@ -118,14 +118,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Deposit Fee') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Deposit Fee') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ $stockItem->deposit_fee }}%</p>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Withdrawal Status') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Withdrawal Status') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ active_status($stockItem->withdrawal_status) }}</p>
@@ -133,14 +133,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('Withdrawal Fee') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('Withdrawal Fee') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">{{ $stockItem->withdrawal_fee }}%</p>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{ __('API Service') }}</label>
+                                            <label class="col-sm-4 control-label">{{ __('API Service') }}:</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-static">
                                                     {{ array_key_exists($stockItem->api_service, api_services()) ? api_services($stockItem->api_service) : '' }}

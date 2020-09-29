@@ -54,71 +54,41 @@
 <script src="{{ asset('common/vendors/cvalidator/cvalidator.js') }}"></script>
 <script src="{{ asset('common/vendors/bootstrap-fileinput/js/jasny-bootstrap.js') }}"></script>
 <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
             $('.validator').cValidate({});
         });
 
-        const url = "{{route('api.stockItem')}}";
+        new Vue({
+            el: '#app',
+            data: {
+                showOptionalFields : true,
+                hideIcoOptionFields: 0,
+                itemTypes: @json(config('commonconfig.currency_transferable')),
+                cryptoApis: @json(crypto_currency_api_services()),
+                realApis: @json(real_currency_api_services()),
+                apis: @json(api_services())
+            },
+            methods: {
+                changeItemType: function (event) {
+                    let itemTypeValue = parseInt(event.target.value);
 
-        // new Vue({
-        //     el: '#app',
-        //     data: {
-        //         showOptionalFields : true,
-        //         hideIcoOptionFields: 0,
-        //         itemTypes: @json(config('commonconfig.currency_transferable')),
-              
-        //         cryptoApis: @json(crypto_currency_api_services()),
-        //         realApis: @json(real_currency_api_services()),
-                
-        //         apis: @json(api_services())
-        //     },
-          
-        //     methods: {
-        //         changeItemType: function (event) {
-        //             let itemTypeValue = parseInt(event.target.value);
+                    // if(itemTypeValue == {{ CURRENCY_CRYPTO }})
+                    // {
+                    //     this.apis = this.cryptoApis;
+                    // }
+                    // else if(itemTypeValue == {{ CURRENCY_REAL }})
+                    // {
+                    //     this.apis = this.realApis;
+                    // }
+                    if(itemTypeValue == {{ CURRENCY_VIRTUAL }})
+                    {
+                        this.apis = @json(api_services());
+                    }
 
-        //             if(itemTypeValue == {{ CURRENCY_CRYPTO }})
-        //             {
-
-        //                 axios.get(url).then(response =>{
-        //                     var result = response.data;
-
-        //                     console.log(response.data.length);
-
-        //                                   var html = ' <select class="form-control" id="api-services" data-cval-name="{{ __('The API service        field') }}" data-cval-rules="require" name="{{ fake_field('api_service') }}">'+
-        //                                 '<option value="">{{ __('Select API Service') }}</option>'+
-        //                                 '<option value='+response.data[3]+'>'+response.data[3]+'</option>'+
-        //                                 '</select>';
-                            
-
-                    
-
-        //                     $('.api-one').remove();
-        //                      $('#api-name').append(html);
-
-        //                     // this.apis = html;
-        //                 });
-
-                      
-
-
-        //                 // this.apis = this.cryptoApis;
-        //             }
-        //             else if(itemTypeValue == {{ CURRENCY_REAL }})
-        //             {
-        //                 // $('#api-name-services2').remove();
-        //                 this.apis = this.realApis;
-        //             }
-        //             else
-        //             {
-        //                 $('#api-name').empty();
-        //             }
-
-        //             this.showOptionalFields = this.itemTypes.indexOf(itemTypeValue) > -1 ? true : false;
-        //         },
-             
-        //     }
-        // });
-</script>
+                    this.showOptionalFields = this.itemTypes.indexOf(itemTypeValue) > -1 ? true : false;
+                }
+            }
+        });
+    </script>
 
 @endsection

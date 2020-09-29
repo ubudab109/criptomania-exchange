@@ -1,5 +1,8 @@
 @extends('backend.layouts.main_layout')
 @section('title', $title)
+@php
+    $data = DB::table('api_stock_item')->get();
+@endphp
 @section('content')
 <div class="card">
     <div class="card-body">

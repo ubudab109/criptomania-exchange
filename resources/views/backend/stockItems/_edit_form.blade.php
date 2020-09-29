@@ -192,7 +192,7 @@
             </div>
         </div>
 
-        {{--api_service--}}
+    <!--     {{--api_service--}}
         <div class="form-group {{ $errors->has('api_service') ? 'has-error' : '' }}">
             <label for="api-services" class="col-md-4 control-label required">{{ __('API Service') }}</label>
             <div class="col-md-8">
@@ -210,7 +210,23 @@
 
                 <span class="validation-message cval-error" data-cval-error="{{ fake_field('api_service') }}">{{ $errors->first('api_service') }}</span>
             </div>
+        </div> -->
+
+        {{--api_service--}}
+        <div class="form-group {{ $errors->has('api_service') ? 'has-error' : '' }}" id="api-name-services">
+            <label for="api-services" class="col-md-4 control-label required" id="label-api">{{ __('API Service') }}</label>
+            <div class="col-md-8" id="api-name">
+                <select class="form-control api-one" id="api-services" data-cval-name="{{ __('The API service field') }}" data-cval-rules="require" name="{{ fake_field('api_service') }}">
+                    <option value="">{{ __('Select API Service') }}</option>
+                    @foreach($data as $result)
+                    <option value="{{ $result->api_value}}">{{ $result->api_name}}</option>
+                    @endforeach
+                </select>
+
+                <span class="validation-message cval-error" data-cval-error="{{ fake_field('api_service') }}">{{ $errors->first('api_service') }}</span>
+            </div>
         </div>
+
     </div>
 </div>
 
